@@ -1,0 +1,636 @@
+/* Pretendard 국문 폰트 로드 & Playfair Display 로드 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+:root {
+  /* Color Tokens */
+  --bg-base: #050508;
+  --bg-surface: #101116;
+  --bg-surface-glow: rgba(255, 45, 120, 0.03);
+  
+  --color-pink: #FF2D78;
+  --color-yellow: #FFE000;
+  --color-white: #ffffff;
+  
+  --text-primary: #F8FAFC;
+  --text-secondary: #9A8C90; /* 붉은 기가 은근히 도는 세련된 웜 그레이 */
+  --text-muted: #6B5C60;     /* 붉은 기가 도는 어두운 그레이 */
+  
+  --border-color: rgba(255, 255, 255, 0.05);
+  --border-glow-pink: rgba(255, 45, 120, 0.3);
+  --border-glow-yellow: rgba(255, 224, 0, 0.3);
+
+  /* Fonts */
+  --font-logo: "Playfair Display", serif;      /* 로고 전용 폰트 */
+  --font-headline: "Inter", sans-serif;       /* 최종 확정 메인 폰트 (Inter 800) */
+  --font-sub: "Space Grotesk", sans-serif;    /* 우측 GNB용 미래지향적 서브 폰트 */
+  --font-body: "Inter", "Pretendard", sans-serif; /* 본문 정자체 (실선 느낌 가독성 1순위) */
+  
+  /* Layout */
+  --max-width: 100%; /* Buzzworthy 스타일 와이드 레이아웃을 위한 100% 확장 */
+}
+
+/* Reset & Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none;
+}
+
+/* 커서가 활성화되는 대화형 요소들에 대한 임시 기본 포인터 설정 (모바일 호환 등) */
+a, button, input, select, textarea {
+  cursor: none;
+}
+
+/* Selection style */
+::selection {
+  background-color: var(--color-pink);
+  color: var(--color-white);
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 45, 120, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-pink);
+}
+
+/* Typography Utility */
+h1, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-white);
+}
+h2 {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-white);
+}
+
+/* Common Layout Utilities */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 40px;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
+/* 1px 정밀 미니멀리즘 라인 */
+.border-line {
+  border: 1px solid var(--border-color);
+}
+
+/* Liquid Glass (젖은 유리 질감) */
+.liquid-glass {
+  background: rgba(16, 17, 22, 0.6);
+  backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+}
+
+/* Glowing Border Effect (마우스 호버 시 핫핑크 네온 발광) */
+.glow-card {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+.glow-card:hover {
+  border-color: var(--color-pink);
+  box-shadow: 0 0 20px rgba(255, 45, 120, 0.15), inset 0 0 10px rgba(255, 45, 120, 0.05);
+}
+
+/* Neon Text Shadow */
+.text-neon-pink {
+  text-shadow: 0 0 8px rgba(255, 45, 120, 0.6);
+}
+.text-neon-yellow {
+  text-shadow: 0 0 8px rgba(255, 224, 0, 0.6);
+}
+
+/* Gradient text */
+.gradient-text-pink-yellow {
+  background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-yellow) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- About Us Section & Stack Slider Style (글로벌 공용 3D 플로팅 절대 레이아웃) --- */
+.about-cards-container {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  height: 460px; /* 스택 슬라이더 카드 높이 */
+  margin: 0 auto;
+}
+.about-card-wrapper {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 680px;
+}
+/* 2, 3번 카드는 GSAP 제어 전까지 기본으로 아래에 대기 및 감춤 */
+.about-card-wrapper.card-2 {
+  opacity: 0;
+  transform: translate3d(0, 200px, 0);
+}
+.about-card-wrapper.card-3 {
+  opacity: 0;
+  transform: translate3d(0, 400px, 0);
+}
+
+/* 어바웃 섹션 세로 중앙 정렬 패딩 튜닝 (100vh 스태킹 최적화) */
+#about {
+  min-height: 100vh;
+  padding: 160px 100px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 세로 중앙 정렬 보장 */
+}
+
+@media (max-width: 1024px) {
+  #about {
+    padding: 100px 40px 60px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #about {
+    padding: 60px 20px 40px !important;
+  }
+  .about-cards-container {
+    height: 380px; /* 모바일 디바이스 뷰포트 맞춤 축소 */
+  }
+  .about-card-wrapper {
+    max-width: 100%;
+  }
+  .about-card-wrapper .glow-card {
+    padding: 24px !important; /* 모바일용 카드 안 여백 압축 */
+    min-height: 380px !important;
+  }
+  .about-card-wrapper h3 {
+    font-size: 20px !important; /* 타이틀 스케일 다운 */
+    margin-bottom: 12px !important;
+  }
+  .about-card-wrapper p {
+    font-size: 14px !important; /* 본문 스케일 다운 */
+    line-height: 1.6 !important;
+  }
+}
+
+/* --- Works Track & Card Alignment Style (글로벌 공용 가로 트랙) --- */
+.works-track {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 100px;
+  padding-right: 200px;
+  width: max-content;
+  position: relative;
+}
+
+#works .glow-card {
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .works-track {
+    padding-left: 40px;
+    padding-right: 120px;
+  }
+  /* 태블릿용 카드 축소 및 상하 비대칭 오프셋 마진 리셋 */
+  #works .works-card-hover,
+  #works .works-viewall-hover {
+    flex: 0 0 420px !important;
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .works-track {
+    padding-left: 20px;
+    padding-right: 60px;
+  }
+  /* 모바일용 카드 극도 긴축 및 상하 비대칭 오프셋 마진 리셋 */
+  #works .works-card-hover,
+  #works .works-viewall-hover {
+    flex: 0 0 310px !important;
+    margin-top: 0 !important;
+  }
+  #works .glow-card {
+    padding: 24px 20px !important; /* 모바일용 안여백 압축 */
+    min-height: 410px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  /* 모바일용 브라우저 목업 프레임 및 이미지 정지 위치 정교화 */
+  #works .browser-mockup {
+    height: 200px !important;
+  }
+  #works .mockup-content-viewport {
+    height: 176px !important; /* 헤더 24px를 뺀 실질 뷰포트 높이 */
+  }
+  #works .works-card-hover:hover .mockup-scroll-image {
+    transform: translateY(calc(-100% + 176px)) !important; /* 모바일 전용 정밀 정지선 */
+  }
+  #works h3 {
+    font-size: 18px !important;
+    margin-top: 16px !important;
+    margin-bottom: 8px !important;
+  }
+  #works p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+  #works .view-all-inner-card {
+    height: 100% !important;
+    min-height: auto !important;
+    padding: 16px !important;
+  }
+  #works .arrow-circle {
+    width: 50px !important;
+    height: 50px !important;
+    margin-bottom: 16px !important;
+  }
+}
+
+/* --- Hero Section & Elements Layout Alignment --- */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 100px 60px;
+  text-align: left;
+  position: relative;
+  z-index: 100;
+}
+
+.hero-line-1 {
+  position: absolute;
+  top: 19vh;
+  left: 100px;
+  width: calc(100% - 200px);
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+
+.hero-line-2 {
+  position: absolute;
+  bottom: 13vh;
+  left: 100px;
+  right: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 13vh;
+  left: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 태블릿 반응형 (1024px 이하) 그리드 가이드 정렬 (40px) */
+@media (max-width: 1024px) {
+  .hero-section {
+    padding: 0 40px 40px;
+  }
+  .hero-line-1 {
+    left: 40px;
+    width: calc(100% - 80px);
+  }
+  .hero-line-2 {
+    left: 40px;
+    right: 40px;
+  }
+  .hero-scroll-indicator {
+    left: 40px;
+  }
+}
+
+/* 모바일 반응형 (768px 이하) 그리드 가이드 정렬 (20px) */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 0 20px 30px;
+  }
+  .hero-line-1 {
+    left: 20px;
+    width: calc(100% - 40px);
+    top: 15vh;
+  }
+  .hero-line-2 {
+    left: 20px;
+    right: 20px;
+    bottom: 10vh;
+  }
+  .hero-scroll-indicator {
+    left: 20px;
+    bottom: 10vh;
+  }
+}
+
+/* --- Floating Menu Container & Sticky Style --- */
+.hero-menu-container {
+  position: absolute;
+  top: 30vh;
+  left: 100px;
+  z-index: 10;
+}
+
+.floating-menu-btn {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 0;
+}
+
+.floating-menu-btn.is-sticky {
+  position: fixed !important;
+  top: auto !important;
+  bottom: 40px !important;
+  left: 100px !important;
+  margin: 0 !important;
+  animation: menuFloatIn 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* 모바일 및 타블렛 대응 여백 보정 */
+@media (max-width: 1024px) {
+  .hero-menu-container {
+    left: 40px;
+  }
+  .floating-menu-btn.is-sticky {
+    left: 40px !important;
+  }
+}
+@media (max-width: 768px) {
+  .hero-menu-container {
+    left: 20px;
+    top: 25vh; /* 모바일에서는 타이틀 줄바꿈 배치 고려하여 고도 보정 */
+  }
+  .floating-menu-btn.is-sticky {
+    left: 20px !important;
+    bottom: 24px !important;
+  }
+}
+
+@keyframes menuFloatIn {
+  from {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* --- 노트북 해상도 가로 스크롤 카드 크기 스케일 다운 최적화 --- */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  #works .works-card-hover,
+  #works .works-viewall-hover {
+    flex: 0 0 440px !important; /* 노트북 뷰포트에 맞게 카드 축소 */
+  }
+  #works .works-cards-inner {
+    gap: 60px !important; /* 카드 사이 가로 간격 축소 */
+  }
+}
+
+/* --- 600px 이하 모바일 전용 반응형 레이아웃 극도 최적화 --- */
+@media (max-width: 600px) {
+  /* 1. 히어로 섹션 흐름형 수직 스택 전환 (세로 화면 가득 채움 방지 및 자연스러운 플로우) */
+  .hero-section {
+    height: auto !important;
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    padding: 0 16px 40px !important; /* PC와 동일하게 상단 패딩 0으로 복원하여 상단에 밀착 */
+    gap: 30px !important;
+  }
+  .hero-line-1,
+  .hero-menu-container,
+  .hero-line-2,
+  .hero-scroll-indicator,
+  .hero-ticker-container {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    transform: none !important;
+  }
+  .hero-line-1 h1,
+  .hero-line-2 h1 {
+    font-size: clamp(38px, 10.5vw, 48px) !important;
+    line-height: 1.2 !important;
+  }
+  .hero-line-2 {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+  .hero-scroll-indicator {
+    align-items: center !important;
+    margin-top: 30px !important;
+  }
+  .hero-ticker-container {
+    margin: 20px 0 !important;
+  }
+
+  /* 2. Floating Menu 모바일 가독성 및 정렬 최적화 (글자 안 깨지게) */
+  .floating-menu-panel {
+    padding: 100px 24px !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+  .floating-menu-nav {
+    padding-left: 0 !important;
+    gap: 20px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .floating-menu-nav a {
+    font-size: 28px !important;
+  }
+
+  /* 3. About Us 모바일 세로 카드 스택화 (100vh & Pin 해제) */
+  #about {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 60px 16px !important;
+  }
+  #about > div:first-of-type {
+    margin-bottom: 30px !important;
+  }
+  .about-cards-container {
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .about-card-wrapper {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .about-card-wrapper .glow-card {
+    min-height: auto !important;
+    padding: 24px 20px !important;
+  }
+  .about-card-wrapper h3 {
+    font-size: 18px !important;
+    margin-bottom: 10px !important;
+  }
+  .about-card-wrapper p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 4. Works 모바일 GSAP 가로 스크롤 Pin 애니메이션 복원 */
+  #works {
+    min-height: auto !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 60px 0 !important;
+    overflow: hidden !important;
+  }
+  #works .works-title-area {
+    margin-bottom: 24px !important;
+    padding: 0 16px !important;
+  }
+  .works-track {
+    padding-left: 16px !important;
+    padding-right: 100px !important;
+    overflow-x: visible !important;
+    width: max-content !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+  .works-cards-inner {
+    gap: 20px !important;
+    padding-right: 0 !important;
+  }
+  #works .works-card-hover,
+  #works .works-viewall-hover {
+    flex: 0 0 280px !important; /* 화면 폭 좁은 스마트폰에서 카드 맞춤 축소 */
+    margin-top: 0 !important;
+  }
+  #works .glow-card {
+    padding: 20px 16px !important;
+    min-height: 450px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  #works .browser-mockup {
+    height: 240px !important;
+  }
+  #works .mockup-content-viewport {
+    height: 216px !important;
+  }
+  /* 모바일 가상/실제 이미지 스크롤 정지선 */
+  #works .works-card-hover:hover .mockup-scroll-image {
+    transform: translateY(calc(-100% + 216px)) !important;
+  }
+  #works .view-all-inner-card {
+    height: 100% !important;
+    min-height: auto !important;
+    padding: 12px !important;
+  }
+  #works .arrow-circle {
+    width: 44px !important;
+    height: 44px !important;
+    margin-bottom: 12px !important;
+  }
+  #works .view-all-inner-card h3 {
+    font-size: 16px !important;
+  }
+
+  /* 5. ServicesSection 패딩 및 아코디언 컴팩트화 (100vh 해제) */
+  .services-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 60px 16px !important;
+  }
+  .services-section > div:first-of-type {
+    margin-bottom: 30px !important;
+  }
+  .service-header-btn {
+    padding: 20px 0 !important;
+  }
+  .service-header-left {
+    gap: 12px !important;
+  }
+  .service-content-inner {
+    padding-left: 16px !important;
+    padding-bottom: 20px !important;
+    gap: 12px !important;
+  }
+  .service-content-inner p {
+    font-size: 14px !important;
+  }
+
+  /* 6. ContactSection 패딩 및 폼 카드 최밀착 (100vh 해제) */
+  .contact-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 60px 16px !important;
+  }
+  .contact-section > div:first-of-type {
+    margin-bottom: 30px !important;
+  }
+  .contact-form-container {
+    padding: 30px 16px !important;
+  }
+  .contact-form-container form {
+    gap: 16px !important;
+  }
+}
