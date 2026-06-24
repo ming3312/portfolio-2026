@@ -11,11 +11,27 @@ import AboutCards from "./components/AboutCards";
 import WorksCards from "./components/WorksCards";
 import ServicesSection from "./components/ServicesSection";
 import ContactSection from "./components/ContactSection";
+import Admin from "./components/Admin";
 
 // GSAP ScrollTrigger 플러그인 등록
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  const navigateTo = (path) => {
+    window.history.pushState(null, "", path);
+    setCurrentPath(path);
+  };
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener("popstate", handleLocationChange);
+    return () => window.removeEventListener("popstate", handleLocationChange);
+  }, []);
+
   const line1Ref = useRef(null);
   const tickerContainerRef = useRef(null);
   const line2Ref = useRef(null);
@@ -28,6 +44,8 @@ function App() {
   const worksServicesWrapperRef = useRef(null);
 
   useEffect(() => {
+    if (currentPath === "/admin") return;
+
     // --- Lenis Smooth Scroll 초기화 ---
     const lenis = new Lenis({
       duration: 1.2,
@@ -192,7 +210,7 @@ function App() {
       mm.revert();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, []);
+  }, [currentPath]);
 
   return (
     <>
@@ -203,7 +221,10 @@ function App() {
       <CustomCursor />
 
       {/* 2단계: Home (비대칭 및 입자 공간 배경 셋업 완료) */}
-      <main style={{ width: "100%", minHeight: "200vh", paddingTop: 0, position: "relative", zIndex: 10 }}>
+      {currentPath === "/admin" ? (
+        <Admin navigateTo={navigateTo} />
+      ) : (
+        <main style={{ width: "100%", minHeight: "200vh", paddingTop: 0, position: "relative", zIndex: 10 }}>
         
         {/* 1. Hero Section (비대칭 좌측 상단 & 우측 하단 배치) */}
         <section
@@ -434,6 +455,7 @@ function App() {
         {/* 5. [5단계] Contact (EmailJS 글로잉 의뢰 폼) */}
         <ContactSection />
       </main>
+      )}
 
       <style>{`
         @keyframes pulse {
