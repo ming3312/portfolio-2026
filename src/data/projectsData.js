@@ -3,6 +3,22 @@
 export const projects = [
   {
     id: "01",
+    title: "월드비전 생일축하 페이지",
+    projectName: "월드비전 생일축하 페이지",
+    category: "CAMPAGIN",
+    role: "DESIGN & PUBLISH",
+    desc: "후원아동의 생일을 축하하고 따뜻한 메시지를 전하는 기부 연계 캠페인 페이지입니다.",
+    techStack: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+    color: "rgba(255, 45, 120, 0.12)",
+    borderColor: "rgba(255, 45, 120, 0.25)",
+    badgeColor: "#FF2D78",
+    projectImage: "/images/project_wv_birthday.jpg",
+    projectThumb: "/images/project_wv_birthday_thumb.jpg",
+    mobileOnly: true,
+    textOnly: false
+  },
+  {
+    id: "02",
     title: "월드비전 후원아동 성장 스토리",
     projectName: "월드비전 후원아동 성장 스토리",
     category: "CAMPAGIN",
@@ -18,7 +34,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "02",
+    id: "03",
     title: "월드비전 서신독려 캠페인",
     projectName: "월드비전 서신독려 캠페인",
     category: "CAMPAGIN",
@@ -35,7 +51,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "03",
+    id: "04",
     title: "월드비전 크리스마스 선물 보내기",
     projectName: "월드비전 크리스마스 선물 보내기 캠페인",
     category: "CAMPAGIN",
@@ -51,7 +67,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "04",
+    id: "05",
     title: "월드비전 닭 보내기 캠페인 결과보고",
     projectName: "월드비전 닭 보내기 캠페인 결과보고",
     category: "CAMPAGIN",
@@ -67,7 +83,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "05",
+    id: "06",
     title: "월드비전 후원아동 편지쓰기",
     projectName: "월드비전 후원아동 편지쓰기 캠페인",
     category: "CAMPAGIN",
@@ -83,7 +99,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "06",
+    id: "07",
     title: "월드비전 사업후원자 연말편지",
     projectName: "월드비전 개별페이지",
     category: "CAMPAGIN",
@@ -99,7 +115,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "07",
+    id: "08",
     title: "BTS QR PROMOTION",
     category: "BRAND / BUSINESS",
     role: "INTERACTIVE MARKETING PAGE",
@@ -112,7 +128,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "08",
+    id: "09",
     title: "PIXEL ICO COMMUNITY",
     category: "BRAND / BUSINESS",
     role: "WEB PUBLISHING & COMMUNITY SYSTEM",
@@ -125,7 +141,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "09",
+    id: "10",
     title: "KIOSK FOUNDATION",
     category: "OTHER",
     role: "FOUNDATION WEBSITE REDESIGN & PUBLISH",
@@ -138,7 +154,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "10",
+    id: "11",
     title: "BE DESIGN",
     category: "BRAND / BUSINESS",
     role: "UI/UX DESIGN & BRANDING SPEC",
@@ -151,7 +167,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "11",
+    id: "12",
     title: "WONDERPLACE",
     category: "E COMMERCE",
     role: "E-COMMERCE SHOWROOM & INTERFACES",
@@ -164,7 +180,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "12",
+    id: "13",
     title: "ACHIMOSPHERE",
     category: "OTHER",
     role: "INTERIOR ARCHITECTURE ARCHIVE",
@@ -177,7 +193,7 @@ export const projects = [
     textOnly: true
   },
   {
-    id: "13",
+    id: "14",
     title: "CARRIER x PARK GYU-YOUNG MICROSITE",
     category: "CAMPAGIN",
     role: "PROMOTION MICROSITE & MARKETING",
