@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { 
   Lock, 
-  Unlock, 
   MessageSquare, 
-  Calendar, 
   Trash2, 
   Eye, 
   ArrowLeft, 
@@ -64,10 +62,11 @@ const Admin = ({ navigateTo }) => {
     setIsAuthenticated(false);
     sessionStorage.removeItem("admin_authenticated");
     setPasscode("");
+    navigateTo("/"); // 로그아웃 후 메인 포트폴리오로 이동
   };
 
   // --- Supabase 데이터 패치 ---
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     if (!isAuthenticated) return;
     setIsLoading(true);
     try {
@@ -84,11 +83,11 @@ const Admin = ({ navigateTo }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isAuthenticated]);
 
   useEffect(() => {
     fetchContacts();
-  }, [isAuthenticated]);
+  }, [fetchContacts]);
 
   // --- 데이터 삭제 ---
   const handleDeleteContact = async (id) => {
@@ -132,6 +131,20 @@ const Admin = ({ navigateTo }) => {
     "개발 및 유지보수": 0
   };
 
+  // 카테고리별 고정 색상 맵
+  const categoryColors = {
+    "디자인": "#FFE000",
+    "홈페이지 제작": "#FF2D78",
+    "홈페이지 제작 및 개발": "#FF7AAD",
+    "개발 및 유지보수": "#9B72CF"
+  };
+  const categoryGlows = {
+    "디자인": "rgba(255,224,0,0.5)",
+    "홈페이지 제작": "rgba(255,45,120,0.5)",
+    "홈페이지 제작 및 개발": "rgba(255,122,173,0.4)",
+    "개발 및 유지보수": "rgba(155,114,207,0.4)"
+  };
+
   contacts.forEach(item => {
     let cat = item.category;
     // 이전 영문 더미/테스트 데이터 매핑 지원
@@ -139,15 +152,23 @@ const Admin = ({ navigateTo }) => {
     if (cat === "Web Development") cat = "홈페이지 제작";
     if (cat === "AI & Full-Stack") cat = "홈페이지 제작 및 개발";
     if (cat === "Consulting & Etc") cat = "개발 및 유지보수";
-    
-    if (!cat) cat = "디자인";
 
-    if (categoryStats[cat] !== undefined) {
+    // 알려진 카테고리만 집계 (미분류/알 수 없는 값은 무시)
+    if (cat && categoryStats[cat] !== undefined) {
       categoryStats[cat] += 1;
-    } else {
-      categoryStats["디자인"] += 1;
     }
   });
+
+  // Escape 키로 모달 닫기 (a11y)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (!selectedContact) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setSelectedContact(null);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [selectedContact]);
 
   // --- 필터링 처리 ---
   const filteredContacts = contacts.filter(item => {
@@ -311,7 +332,7 @@ const Admin = ({ navigateTo }) => {
           }
           .admin-main-content {
             margin-left: 0 !important;
-            padding: 30px 20px !important;
+            padding: 82px 20px 30px !important;
           }
           .admin-metric-cards {
             grid-template-columns: 1fr !important;
@@ -577,9 +598,9 @@ const Admin = ({ navigateTo }) => {
                             style={{ 
                               width: `${percentage}%`, 
                               height: "100%", 
-                              backgroundColor: catName.includes("제작") ? "var(--color-pink)" : "var(--color-yellow)",
+                              backgroundColor: categoryColors[catName] || "var(--color-pink)",
                               borderRadius: "3px",
-                              boxShadow: `0 0 8px ${catName.includes("제작") ? "rgba(255,45,120,0.5)" : "rgba(255,224,0,0.5)"}`
+                              boxShadow: `0 0 8px ${categoryGlows[catName] || "rgba(255,45,120,0.4)"}`
                             }} 
                           />
                         </div>
@@ -805,8 +826,14 @@ const Admin = ({ navigateTo }) => {
                                 color: "var(--color-pink)",
                                 transition: "all 0.2s"
                               }}
-                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--color-pink)"}
-                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "rgba(255, 45, 120, 0.1)"}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = "var(--color-pink)";
+                                e.currentTarget.style.color = "#ffffff";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = "rgba(255, 45, 120, 0.1)";
+                                e.currentTarget.style.color = "var(--color-pink)";
+                              }}
                             >
                               <Trash2 size={14} color={isDeletingId === item.id ? "#888" : "currentColor"} />
                             </button>

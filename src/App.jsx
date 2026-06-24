@@ -59,9 +59,9 @@ function App() {
 
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    let rafId = requestAnimationFrame(raf);
 
     // --- GSAP Hero Reveal Animation (비대칭 레이아웃 연출) ---
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
@@ -186,6 +186,7 @@ function App() {
     }
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       mm.revert();
       ScrollTrigger.getAll().forEach(t => t.kill());
@@ -197,8 +198,8 @@ function App() {
       {/* 3D Twinkling Star Particles 배경 */}
       <BackgroundCanvas />
 
-      {/* 커스텀 마그네틱 블렌딩 커서 */}
-      <CustomCursor />
+      {/* 커스텀 마그네틱 블렌딩 커서 - 어드민 페이지에서는 비활성화 */}
+      {currentPath !== "/admin" && <CustomCursor />}
 
       {/* 2단계: Home (비대칭 및 입자 공간 배경 셋업 완료) */}
       {currentPath === "/admin" ? (
@@ -357,7 +358,7 @@ function App() {
               letterSpacing: "-0.02em",
               marginTop: "8px"
             }}>
-              ABOUT US
+              ABOUT ME
             </h2>
           </div>
 
