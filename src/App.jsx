@@ -9,6 +9,7 @@ import TextTicker from "./components/TextTicker";
 import FloatingMenu from "./components/FloatingMenu";
 import AboutCards from "./components/AboutCards";
 import WorksCards from "./components/WorksCards";
+import WorksArchive from "./components/WorksArchive";
 import ServicesSection from "./components/ServicesSection";
 import ContactSection from "./components/ContactSection";
 import Admin from "./components/Admin";
@@ -22,6 +23,8 @@ function App() {
   const navigateTo = (path) => {
     window.history.pushState(null, "", path);
     setCurrentPath(path);
+    // 페이지 이동 시 즉시 최상단 스크롤 초기화
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
@@ -31,6 +34,9 @@ function App() {
     window.addEventListener("popstate", handleLocationChange);
     return () => window.removeEventListener("popstate", handleLocationChange);
   }, []);
+
+  const isAdmin = currentPath === "/admin";
+  const isArchive = currentPath.startsWith("/works");
 
   const line1Ref = useRef(null);
   const tickerContainerRef = useRef(null);
@@ -62,6 +68,14 @@ function App() {
       rafId = requestAnimationFrame(raf);
     }
     let rafId = requestAnimationFrame(raf);
+
+    // 아카이브(/works) 페이지에서는 메인 홈 애니메이션을 실행하지 않고 스무스 스크롤만 활성화
+    if (currentPath.startsWith("/works")) {
+      return () => {
+        cancelAnimationFrame(rafId);
+        lenis.destroy();
+      };
+    }
 
     // --- GSAP Hero Reveal Animation (비대칭 레이아웃 연출) ---
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
@@ -201,10 +215,12 @@ function App() {
       {/* 커스텀 마그네틱 블렌딩 커서 - 어드민 페이지에서는 비활성화 */}
       {currentPath !== "/admin" && <CustomCursor />}
 
-      {/* 2단계: Home (비대칭 및 입자 공간 배경 셋업 완료) */}
-      {currentPath === "/admin" ? (
-        <Admin navigateTo={navigateTo} />
-      ) : (
+      {/* 라우팅 및 조건별 렌더링 분기 */}
+      {isAdmin && <Admin navigateTo={navigateTo} />}
+
+      {isArchive && <WorksArchive navigateTo={navigateTo} />}
+
+      {!isAdmin && !isArchive && (
         <main style={{ width: "100%", minHeight: "200vh", paddingTop: 0, position: "relative", zIndex: 10 }}>
         
         {/* 1. Hero Section (비대칭 좌측 상단 & 우측 하단 배치) */}
@@ -425,7 +441,7 @@ function App() {
               className="works-track"
             >
               {/* 비대칭 프로젝트 카드 나열 컴포넌트 */}
-              <WorksCards />
+              <WorksCards navigateTo={navigateTo} />
             </div>
           </section>
 

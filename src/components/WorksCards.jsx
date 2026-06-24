@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TiltCard } from "./AboutCards";
+import { projects } from "../data/projectsData";
 
 // --- 브라우저 자동 스크롤 목업 컴포넌트 ---
 const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) => {
@@ -20,7 +21,7 @@ const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) 
         flexDirection: "column"
       }}
     >
-      {/* 1. 브라우저 헤더 바 (🔴 🟡 🟢) */}
+      {/* 1. 브라우저 헤더 바 */}
       <div 
         style={{
           height: "24px",
@@ -28,14 +29,13 @@ const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) 
           borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
           display: "flex",
           alignItems: "center",
-          padding: "0 10px",
-          gap: "6px",
+          padding: "0 12px",
           zIndex: 3
         }}
       >
-        <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#FF5F56", display: "inline-block" }} />
-        <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#FFBD2E", display: "inline-block" }} />
-        <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#27C93F", display: "inline-block" }} />
+        <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-sub)", letterSpacing: "1px", textTransform: "uppercase" }}>
+          {projectTitle} // PREVIEW
+        </span>
       </div>
 
       {/* 2. 자동 스크롤 목업 이미지/콘텐츠 홀더 */}
@@ -126,48 +126,15 @@ const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) 
 };
 
 // --- Works 리스트 카드 컴포넌트 ---
-const WorksCards = () => {
-  const projects = [
-    {
-      id: "01",
-      title: "HWANGWOO BRANDING",
-      role: "SINGLE BUILD DESIGN & PUBLISH",
-      desc: "황우 브랜딩 리뉴얼 웹 퍼블리싱. 정교한 미니멀 라인과 세련된 다크 테마를 결합한 브랜드 쇼룸 구현.",
-      techStack: ["Branding", "Interaction", "Layout", "Publishing"],
-      color: "rgba(255, 45, 120, 0.2)",
-      borderColor: "rgba(255, 45, 120, 0.25)",
-      badgeColor: "#FF2D78",
-      align: "flex-start", // 비대칭 배치용
-      offsetY: "0px",
-      projectImage: "/images/project_hwangwoo.png" // 실제 업로드된 황우 마블링 이미지 바인딩
-    },
-    {
-      id: "02",
-      title: "WORLD VISION CAMPAIGN A",
-      role: "CREATIVE DIRECTING & BUILD",
-      desc: "월드비전 긴급 구호 캠페인 마이크로 웹사이트. 사용자 조작과 휠 스크롤 속도에 매끄럽게 매핑되는 액체 왜곡 모션 연동.",
-      techStack: ["Motion Graphics", "3D Graphics", "Interactive Web", "Design"],
-      color: "rgba(255, 224, 0, 0.15)",
-      borderColor: "rgba(255, 224, 0, 0.25)",
-      badgeColor: "#FFE000",
-      align: "flex-end", // 비대칭 배치용 (상하 엇갈림)
-      offsetY: "140px",
-      projectImage: "/images/project_hwangwoo.png" // 테스트용으로 동일 황우 이미지 지정 (추후 개별 수정 예정)
-    },
-    {
-      id: "03",
-      title: "WORLD VISION CAMPAIGN B",
-      role: "INTERACTIVE GRAPHICS & PUBLISH",
-      desc: "기부 활성화를 유도하는 마이크로 정밀 대시보드 및 결제 라우팅 연동 웹 어플리케이션 설계.",
-      techStack: ["Interactive UI", "UX Logic", "Smooth Motion", "Publishing"],
-      color: "rgba(255, 45, 120, 0.2)",
-      borderColor: "rgba(255, 45, 120, 0.25)",
-      badgeColor: "#FF2D78",
-      align: "flex-start", // 비대칭 배치용
-      offsetY: "70px",
-      projectImage: "/images/project_hwangwoo.png" // 테스트용으로 동일 황우 이미지 지정 (추후 개별 수정 예정)
-    }
-  ];
+const WorksCards = ({ navigateTo }) => {
+  // textOnly가 아닌 주요 프로젝트들 중 처음 3개 표시
+  const displayProjects = projects.filter((proj) => !proj.textOnly).slice(0, 3);
+
+  const getOffsetY = (idx) => {
+    if (idx % 3 === 0) return "0px";
+    if (idx % 3 === 1) return "140px";
+    return "70px";
+  };
 
   return (
     <div 
@@ -181,68 +148,85 @@ const WorksCards = () => {
         position: "relative"
       }}
     >
-      {projects.map((proj, idx) => (
-        <div
-          key={proj.id}
-          className="works-card-hover"
-          style={{
-            flex: "0 0 520px", // 가로 슬라이더 내 카드 크기 고정
-            marginTop: proj.offsetY, // 비대칭 엇갈림 마진 부여
-            transformStyle: "preserve-3d",
-            position: "relative"
-          }}
-        >
-          {/* 카드 뒷편 Chipsa 스타일의 정교한 1px 수직/수평 데코 레이어선 */}
-          <div 
+      {displayProjects.map((proj, idx) => {
+        const offsetY = getOffsetY(idx);
+        return (
+          <div
+            key={proj.id}
+            className="works-card-hover"
+            onClick={() => navigateTo(`/works?id=${proj.id}`)}
             style={{
-              position: "absolute",
-              top: "-40px",
-              left: "-40px",
-              right: "-40px",
-              bottom: "-40px",
-              pointerEvents: "none",
-              zIndex: 0
+              flex: "0 0 520px", // 가로 슬라이더 내 카드 크기 고정
+              marginTop: offsetY, // 비대칭 엇갈림 마진 부여
+              transformStyle: "preserve-3d",
+              position: "relative",
+              cursor: "none"
             }}
           >
-            {/* 십자 데코 라인 */}
-            <div style={{ position: "absolute", top: "40px", left: 0, right: 0, height: "1px", background: "linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent)" }} />
-            <div style={{ position: "absolute", left: "40px", top: 0, bottom: 0, width: "1px", background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.06), transparent)" }} />
-          </div>
-
-          <TiltCard style={{ padding: "40px", borderColor: proj.borderColor, position: "relative", zIndex: 1, display: "flex", flexDirection: "column" }}>
-            {/* 상단 메타 영역 */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-              <span style={{ fontSize: "12px", fontFamily: "var(--font-sub)", color: proj.badgeColor, letterSpacing: "2px", fontWeight: 700 }}>
-                {proj.id} // WORK
-              </span>
-              <span style={{ fontSize: "10px", color: "var(--text-muted)", fontFamily: "var(--font-sub)" }}>
-                {proj.role}
-              </span>
+            {/* 카드 뒷편 Chipsa 스타일의 정교한 1px 수직/수평 데코 레이어선 */}
+            <div 
+              style={{
+                position: "absolute",
+                top: "-40px",
+                left: "-40px",
+                right: "-40px",
+                bottom: "-40px",
+                pointerEvents: "none",
+                zIndex: 0
+              }}
+            >
+              {/* 십자 데코 라인 */}
+              <div style={{ position: "absolute", top: "40px", left: 0, right: 0, height: "1px", background: "linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent)" }} />
+              <div style={{ position: "absolute", left: "40px", top: 0, bottom: 0, width: "1px", background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.06), transparent)" }} />
             </div>
 
-            {/* 브라우저 자동 스크롤 목업 탑재 */}
-            <BrowserMockup projectColor={proj.color} projectTitle={proj.title} techStack={proj.techStack} projectImage={proj.projectImage} />
+            <TiltCard style={{ padding: "40px", borderColor: proj.borderColor, position: "relative", zIndex: 1, display: "flex", flexDirection: "column" }}>
+              {/* 상단 메타 영역 */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+                <span style={{ fontSize: "12px", fontFamily: "var(--font-sub)", color: proj.badgeColor, letterSpacing: "2px", fontWeight: 700 }}>
+                  {proj.id} // WORK
+                </span>
+                <span style={{ fontSize: "10px", color: "var(--text-muted)", fontFamily: "var(--font-sub)" }}>
+                  {proj.role}
+                </span>
+              </div>
 
-            {/* 타이틀 및 설명 */}
-            <h3 style={{ fontSize: "22px", fontWeight: 800, marginTop: "24px", marginBottom: "12px", color: "var(--color-white)", letterSpacing: "-0.01em" }}>
-              {proj.title}
-            </h3>
+              {/* 브라우저 자동 스크롤 목업 탑재 */}
+              <BrowserMockup projectColor={proj.color} projectTitle={proj.projectName || proj.title} techStack={proj.techStack} projectImage={proj.projectThumb || proj.projectImage} />
 
-            <p style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.7", wordBreak: "keep-all" }}>
-              {proj.desc}
-            </p>
-          </TiltCard>
-        </div>
-      ))}
+              {/* 타이틀 및 설명 */}
+              <h3 style={{ fontSize: "22px", fontWeight: 800, marginTop: "24px", marginBottom: "12px", color: "var(--color-white)", letterSpacing: "-0.01em" }}>
+                {proj.title}
+              </h3>
+
+              <p style={{
+                fontSize: "14px",
+                color: "var(--text-secondary)",
+                lineHeight: "1.7",
+                wordBreak: "keep-all",
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                textOverflow: "ellipsis"
+              }}>
+                {proj.desc}
+              </p>
+            </TiltCard>
+          </div>
+        );
+      })}
 
       {/* 4번째 전체보기 액션 카드 */}
       <div
         className="works-viewall-hover"
+        onClick={() => navigateTo("/works")}
         style={{
           flex: "0 0 520px", // 일반 프로젝트 카드와 크기 일체화로 그리드 통일성 유지
           marginTop: "50px", // 비대칭 마진 부여
           transformStyle: "preserve-3d",
-          position: "relative"
+          position: "relative",
+          cursor: "none"
         }}
       >
         <div 
