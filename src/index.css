@@ -35,6 +35,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  word-break: keep-all;
 }
 
 html, body {
@@ -42,7 +43,7 @@ html, body {
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.2;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -77,13 +78,7 @@ a, button, input, select, textarea {
 }
 
 /* Typography Utility */
-h1, h3, h4, h5, h6 {
-  font-family: var(--font-headline);
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--color-white);
-}
-h2 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-headline);
   font-weight: 800;
   line-height: 1.2;
@@ -206,7 +201,7 @@ h2 {
   }
   .about-card-wrapper p {
     font-size: 14px !important; /* 본문 스케일 다운 */
-    line-height: 1.6 !important;
+    line-height: 1.2 !important;
   }
 }
 
@@ -274,7 +269,7 @@ h2 {
   }
   #works p {
     font-size: 13px !important;
-    line-height: 1.5 !important;
+    line-height: 1.2 !important;
   }
   #works .view-all-inner-card {
     height: 100% !important;
@@ -529,7 +524,7 @@ h2 {
   }
   .about-card-wrapper p {
     font-size: 13px !important;
-    line-height: 1.5 !important;
+    line-height: 1.2 !important;
   }
 
   /* 4. Works 모바일 GSAP 가로 스크롤 Pin 애니메이션 복원 */
