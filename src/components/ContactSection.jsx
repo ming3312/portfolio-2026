@@ -12,7 +12,7 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    category: "Web Development",
+    category: "디자인",
     message: ""
   });
   
@@ -217,10 +217,10 @@ const ContactSection = () => {
                   style={getGlowingStyle("category")}
                   className="hover-target"
                 >
-                  <option value="Branding & Design">Branding & Interaction Design</option>
-                  <option value="Web Development">High-End Web Publishing</option>
-                  <option value="AI & Full-Stack">AI Full-Stack Development</option>
-                  <option value="Consulting & Etc">General Consulting / Etc</option>
+                  <option value="디자인">디자인 (UX/UI & Brand Design)</option>
+                  <option value="홈페이지 제작">홈페이지 제작 (Web Publishing)</option>
+                  <option value="홈페이지 제작 및 개발">홈페이지 제작 및 개발 (Full-Stack Build)</option>
+                  <option value="개발 및 유지보수">개발 및 유지보수 (Systems & Maintenance)</option>
                 </select>
               </div>
 

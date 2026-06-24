@@ -125,18 +125,26 @@ const Admin = ({ navigateTo }) => {
   }).length;
 
   const categoryStats = {
-    "Branding & Design": 0,
-    "Web Development": 0,
-    "AI & Full-Stack": 0,
-    "Consulting & Etc": 0
+    "디자인": 0,
+    "홈페이지 제작": 0,
+    "홈페이지 제작 및 개발": 0,
+    "개발 및 유지보수": 0
   };
 
   contacts.forEach(item => {
-    const cat = item.category || "Web Development";
+    let cat = item.category;
+    // 이전 영문 더미/테스트 데이터 매핑 지원
+    if (cat === "Branding & Design") cat = "디자인";
+    if (cat === "Web Development") cat = "홈페이지 제작";
+    if (cat === "AI & Full-Stack") cat = "홈페이지 제작 및 개발";
+    if (cat === "Consulting & Etc") cat = "개발 및 유지보수";
+    
+    if (!cat) cat = "디자인";
+
     if (categoryStats[cat] !== undefined) {
       categoryStats[cat] += 1;
     } else {
-      categoryStats["Consulting & Etc"] += 1;
+      categoryStats["디자인"] += 1;
     }
   });
 
@@ -520,9 +528,9 @@ const Admin = ({ navigateTo }) => {
                             style={{ 
                               width: `${percentage}%`, 
                               height: "100%", 
-                              backgroundColor: catName.includes("Web") ? "var(--color-pink)" : "var(--color-yellow)",
+                              backgroundColor: catName.includes("제작") ? "var(--color-pink)" : "var(--color-yellow)",
                               borderRadius: "3px",
-                              boxShadow: `0 0 8px ${catName.includes("Web") ? "rgba(255,45,120,0.5)" : "rgba(255,224,0,0.5)"}`
+                              boxShadow: `0 0 8px ${catName.includes("제작") ? "rgba(255,45,120,0.5)" : "rgba(255,224,0,0.5)"}`
                             }} 
                           />
                         </div>
@@ -640,10 +648,10 @@ const Admin = ({ navigateTo }) => {
                   }}
                 >
                   <option value="All">카테고리 전체</option>
-                  <option value="Branding & Design">Branding & Interaction Design</option>
-                  <option value="Web Development">High-End Web Publishing</option>
-                  <option value="AI & Full-Stack">AI Full-Stack Development</option>
-                  <option value="Consulting & Etc">General Consulting / Etc</option>
+                  <option value="디자인">디자인 (Design)</option>
+                  <option value="홈페이지 제작">홈페이지 제작 (Publishing)</option>
+                  <option value="홈페이지 제작 및 개발">홈페이지 제작 및 개발 (Design & Build)</option>
+                  <option value="개발 및 유지보수">개발 및 유지보수 (Maintenance)</option>
                 </select>
               </div>
 
