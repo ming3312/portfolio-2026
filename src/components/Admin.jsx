@@ -685,9 +685,11 @@ const Admin = ({ navigateTo }) => {
                     {filteredContacts.map((item) => (
                       <tr 
                         key={item.id}
+                        onClick={() => setSelectedContact(item)}
                         style={{ 
                           borderBottom: "1px solid rgba(255,255,255,0.04)", 
-                          transition: "background-color 0.2s" 
+                          transition: "background-color 0.2s",
+                          cursor: "pointer"
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "rgba(255, 45, 120, 0.03)"}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
@@ -734,7 +736,10 @@ const Admin = ({ navigateTo }) => {
                             
                             {/* 삭제 버튼 */}
                             <button
-                              onClick={() => handleDeleteContact(item.id)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteContact(item.id);
+                              }}
                               disabled={isDeletingId === item.id}
                               title="내역 삭제"
                               style={{
