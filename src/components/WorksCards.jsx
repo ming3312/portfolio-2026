@@ -11,7 +11,7 @@ const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) 
       className="browser-mockup"
       style={{
         width: "100%",
-        height: "220px",
+        height: "320px",
         borderRadius: "12px",
         backgroundColor: "#0B0C10",
         border: "1px solid rgba(255, 255, 255, 0.08)",
@@ -21,23 +21,6 @@ const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) 
         flexDirection: "column"
       }}
     >
-      {/* 1. 브라우저 헤더 바 */}
-      <div 
-        style={{
-          height: "24px",
-          backgroundColor: "#101116",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
-          display: "flex",
-          alignItems: "center",
-          padding: "0 12px",
-          zIndex: 3
-        }}
-      >
-        <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-sub)", letterSpacing: "1px", textTransform: "uppercase" }}>
-          {projectTitle} // PREVIEW
-        </span>
-      </div>
-
       {/* 2. 자동 스크롤 목업 이미지/콘텐츠 홀더 */}
       <div 
         className="mockup-content-viewport"
@@ -101,10 +84,10 @@ const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) 
       <style>{`
         /* 호버 시 자동 아래로 스크롤하는 연출 클래스 */
         .works-card-hover:hover .mockup-scroll-page {
-          transform: translateY(-240px); 
+          transform: translateY(-180px); 
         }
         .works-card-hover:hover .mockup-scroll-image {
-          transform: translateY(calc(-100% + 196px)); /* 뷰포트 높이 196px 보정 끝 정렬 */
+          transform: translateY(calc(-100% + 320px)); /* 뷰포트 높이 320px 보정 끝 정렬 */
         }
         /* 전체보기 카드 호버 모션 */
         .works-viewall-hover:hover .view-all-inner-card {
