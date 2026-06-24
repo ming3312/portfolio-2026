@@ -9,21 +9,31 @@ const ServicesSection = () => {
   const services = [
     {
       id: "01",
-      title: "BRANDING & INTERACTION DESIGN",
+      title: "DESIGN — UX/UI & BRAND IDENTITY",
+      category: "디자인",
       desc: "감각적인 브랜드 시각 언어(Identity) 수립 및 웹의 물리적 깊이를 표현하는 마이크로 인터랙션 기획. 사용자의 시선을 단숨에 사로잡는 차별화된 비주얼과 모던한 타이포그래피 그리드를 설계합니다.",
-      details: ["UI/UX Strategy", "Micro Interaction", "Obsidian Theme Design", "Grid Identity Layout"]
+      details: ["UX/UI Strategy", "Micro Interaction", "Brand Identity Design", "Typography Grid Layout"]
     },
     {
       id: "02",
-      title: "HIGH-END WEB PUBLISHING",
+      title: "WEB PUBLISHING — HIGH-END FRONT-END",
+      category: "홈페이지 제작",
       desc: "비주얼 설계를 기반으로 오차 없는 정교한 웹 크리에이션. 마우스 스크롤의 관성 전환과 유체 역학 모션 배경을 적용한 최상위 퍼포먼스 퍼블리싱을 완수합니다.",
-      details: ["Interactive Motion Design", "3D Web Graphics", "Custom Fragment Shaders", "Responsive Fluid Layout"]
+      details: ["Interactive Motion Design", "3D Web Graphics", "Custom Animation", "Responsive Fluid Layout"]
     },
     {
       id: "03",
-      title: "AI INTEGRATION & FULL-STACK SYSTEM",
-      desc: "최신 대화형 인공지능 기술 연동 및 지능형 검색 엔진 파이프라인 설계. 커스텀 백엔드 서버 빌딩과 데이터베이스 아키텍처 구축, 자동화 서버 시스템 및 신속한 클라우드 배포를 완성합니다.",
-      details: ["AI Technology Integration", "Custom API Backend System", "Database Architecture Design", "Cloud Server Deployment"]
+      title: "WEB PUBLISHING & DEVELOPMENT — FULL-STACK",
+      category: "홈페이지 제작 및 개발",
+      desc: "디자인과 개발을 아우르는 풀스택 웹 크리에이션. 화려한 UI와 견고한 백엔드 시스템, 데이터베이스 연동 및 관리자 시스템을 통합 구축합니다.",
+      details: ["Full-Stack Build", "Backend API System", "CMS & Admin Console", "Database Integration"]
+    },
+    {
+      id: "04",
+      title: "DEVELOPMENT & MAINTENANCE — SYSTEMS",
+      category: "개발 및 유지보수",
+      desc: "최신 AI 기술 연동 및 클라우드 서버 아키텍처 설계. 기존 서비스의 성능 최적화, 보안 강화 및 지속적인 운영 관리를 지원합니다.",
+      details: ["AI Technology Integration", "Cloud Server Deployment", "Performance Optimization", "Ongoing Maintenance"]
     }
   ];
 

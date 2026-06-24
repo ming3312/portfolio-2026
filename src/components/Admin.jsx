@@ -154,7 +154,6 @@ const Admin = ({ navigateTo }) => {
     const matchesSearch = 
       item.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.phone?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.message?.toLowerCase().includes(searchQuery.toLowerCase());
       
     const matchesCategory = 
@@ -305,8 +304,56 @@ const Admin = ({ navigateTo }) => {
         color: "var(--color-white)"
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-sidebar {
+            display: none !important;
+          }
+          .admin-main-content {
+            margin-left: 0 !important;
+            padding: 30px 20px !important;
+          }
+          .admin-metric-cards {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-stats-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-mobile-header {
+            display: flex !important;
+          }
+        }
+        .admin-mobile-header {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 50;
+          background: rgba(11, 12, 16, 0.95);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          padding: 14px 20px;
+          align-items: center;
+          justify-content: space-between;
+        }
+      `}</style>
+
+      {/* 모바일 전용 상단 헤더 */}
+      <div className="admin-mobile-header">
+        <div style={{ fontSize: "18px", fontWeight: 800, letterSpacing: "1px" }}>
+          Maison <span style={{ color: "var(--color-pink)" }}>▪</span>
+          <span style={{ fontSize: "11px", color: "var(--text-secondary)", fontWeight: 400, marginLeft: "6px" }}>Admin</span>
+        </div>
+        <div style={{ display: "flex", gap: "12px" }}>
+          <button onClick={() => setActiveTab("dashboard")} style={{ border: "none", background: activeTab === "dashboard" ? "rgba(255,45,120,0.1)" : "transparent", color: activeTab === "dashboard" ? "var(--color-pink)" : "var(--text-secondary)", borderRadius: "6px", padding: "6px 12px", fontSize: "12px", cursor: "pointer" }}>대시보드</button>
+          <button onClick={() => setActiveTab("messages")} style={{ border: "none", background: activeTab === "messages" ? "rgba(255,45,120,0.1)" : "transparent", color: activeTab === "messages" ? "var(--color-pink)" : "var(--text-secondary)", borderRadius: "6px", padding: "6px 12px", fontSize: "12px", cursor: "pointer" }}>문의</button>
+          <button onClick={handleLogout} style={{ border: "none", background: "transparent", color: "var(--text-muted)", fontSize: "12px", cursor: "pointer" }}>로그아웃</button>
+        </div>
+      </div>
       {/* ── 좌측 사이드바 ── */}
       <aside 
+        className="admin-sidebar"
         style={{
           width: "280px",
           borderRight: "1px solid rgba(255, 255, 255, 0.05)",
@@ -449,7 +496,7 @@ const Admin = ({ navigateTo }) => {
       </aside>
 
       {/* ── 우측 메인 콘텐츠 영역 ── */}
-      <main style={{ flexGrow: 1, marginLeft: "280px", padding: "50px 60px", minHeight: "100vh" }}>
+      <main className="admin-main-content" style={{ flexGrow: 1, marginLeft: "280px", padding: "50px 60px", minHeight: "100vh" }}>
         
         {/* 상단 헤더 */}
         <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "40px" }}>
@@ -476,7 +523,7 @@ const Admin = ({ navigateTo }) => {
           <div style={{ display: "flex", flexDirection: "column", gap: "36px" }}>
             
             {/* 요약 메트릭 카드 */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
+            <div className="admin-metric-cards" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
               {/* 카드 1 */}
               <div className="liquid-glass" style={{ padding: "30px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)" }}>
                 <div style={{ color: "var(--text-secondary)", fontSize: "12px", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase" }}>
@@ -510,7 +557,7 @@ const Admin = ({ navigateTo }) => {
             </div>
 
             {/* 통계 그래프 & 최신 요약 */}
-            <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1.8fr", gap: "24px" }}>
+            <div className="admin-stats-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 1.8fr", gap: "24px" }}>
               
               {/* 분야별 비중 */}
               <div className="liquid-glass" style={{ padding: "30px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.06)" }}>
@@ -613,7 +660,7 @@ const Admin = ({ navigateTo }) => {
                 <Search size={16} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
                 <input 
                   type="text"
-                  placeholder="이름, 이메일, 내용으로 검색..."
+                  placeholder="이름, 연락처, 내용으로 검색..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   style={{
@@ -711,9 +758,12 @@ const Admin = ({ navigateTo }) => {
                         </td>
                         <td style={{ padding: "18px 20px", textAlign: "center" }}>
                           <div style={{ display: "inline-flex", gap: "10px" }}>
-                            {/* 상세조회 버튼 */}
+                            {/* 상세조회 버튼 - row onClick과 동일하나 명시적 UX를 위해 유지 */}
                             <button
-                              onClick={() => setSelectedContact(item)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedContact(item);
+                              }}
                               title="상세보기"
                               style={{
                                 border: "none",

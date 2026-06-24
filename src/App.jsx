@@ -167,43 +167,23 @@ function App() {
     // ==========================================
     // 2. Works Section ScrollTrigger Setup
     // ==========================================
-    // PC & Tablet (> 600px): Horizontal Scroll with Pin on #works
-    mm.add("(min-width: 601px)", () => {
-      if (worksServicesWrapperRef.current && worksContainerRef.current && worksSectionRef.current) {
-        gsap.to(worksContainerRef.current, {
-          x: () => -(worksContainerRef.current.scrollWidth - window.innerWidth),
-          ease: "none",
-          scrollTrigger: {
-            trigger: worksSectionRef.current,
-            pin: worksServicesWrapperRef.current,
-            scrub: 1,
-            anticipatePin: 1,
-            start: "top top",
-            end: () => `+=${worksContainerRef.current.scrollWidth - window.innerWidth}`,
-            invalidateOnRefresh: true
-          }
-        });
-      }
-    });
-
-    // Mobile (≤ 600px): Horizontal Scroll with Shared Pin (works-services-wrapper)
-    mm.add("(max-width: 600px)", () => {
-      if (worksServicesWrapperRef.current && worksContainerRef.current && worksSectionRef.current) {
-        gsap.to(worksContainerRef.current, {
-          x: () => -(worksContainerRef.current.scrollWidth - window.innerWidth),
-          ease: "none",
-          scrollTrigger: {
-            trigger: worksSectionRef.current,
-            pin: worksServicesWrapperRef.current,
-            scrub: 1,
-            anticipatePin: 1,
-            start: "top top",
-            end: () => `+=${worksContainerRef.current.scrollWidth - window.innerWidth}`,
-            invalidateOnRefresh: true
-          }
-        });
-      }
-    });
+    // PC & Mobile: Horizontal Scroll with Pin on works-services-wrapper
+    // (PC/Mobile 모두 동일한 가로스크롤 로직이므로 matchMedia 없이 단일 등록)
+    if (worksServicesWrapperRef.current && worksContainerRef.current && worksSectionRef.current) {
+      gsap.to(worksContainerRef.current, {
+        x: () => -(worksContainerRef.current.scrollWidth - window.innerWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: worksSectionRef.current,
+          pin: worksServicesWrapperRef.current,
+          scrub: 1,
+          anticipatePin: 1,
+          start: "top top",
+          end: () => `+=${worksContainerRef.current.scrollWidth - window.innerWidth}`,
+          invalidateOnRefresh: true
+        }
+      });
+    }
 
     return () => {
       lenis.destroy();
