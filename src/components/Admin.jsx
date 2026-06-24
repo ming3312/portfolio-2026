@@ -14,7 +14,8 @@ import {
   Mail, 
   User, 
   Tag,
-  AlertCircle
+  AlertCircle,
+  Phone
 } from "lucide-react";
 import { createClient } from "@supabase/supabase-js";
 
@@ -152,6 +153,7 @@ const Admin = ({ navigateTo }) => {
   const filteredContacts = contacts.filter(item => {
     const matchesSearch = 
       item.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.phone?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.message?.toLowerCase().includes(searchQuery.toLowerCase());
       
@@ -673,7 +675,7 @@ const Admin = ({ navigateTo }) => {
                     <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", color: "var(--text-secondary)" }}>
                       <th style={{ padding: "16px 20px" }}>접수 날짜</th>
                       <th style={{ padding: "16px 20px" }}>이름</th>
-                      <th style={{ padding: "16px 20px" }}>이메일</th>
+                      <th style={{ padding: "16px 20px" }}>연락처</th>
                       <th style={{ padding: "16px 20px" }}>카테고리</th>
                       <th style={{ padding: "16px 20px" }}>메시지 내용</th>
                       <th style={{ padding: "16px 20px", textAlign: "center" }}>관리</th>
@@ -697,7 +699,7 @@ const Admin = ({ navigateTo }) => {
                           {item.name}
                         </td>
                         <td style={{ padding: "18px 20px" }}>
-                          {item.email}
+                          {item.phone || item.email || "-"}
                         </td>
                         <td style={{ padding: "18px 20px", color: "var(--color-pink)", fontWeight: 600, whiteSpace: "nowrap" }}>
                           {item.category}
@@ -817,13 +819,25 @@ const Admin = ({ navigateTo }) => {
                 <span style={{ fontSize: "15px", fontWeight: "bold" }}>{selectedContact.name}</span>
               </div>
 
-              {/* 이메일 */}
+              {/* 연락처 / 이메일 (하이브리드 대응) */}
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <Mail size={16} color="var(--text-muted)" />
-                <span style={{ fontSize: "13px", color: "var(--text-secondary)", width: "80px" }}>이메일</span>
-                <a href={`mailto:${selectedContact.email}`} style={{ fontSize: "15px", color: "var(--color-yellow)", textDecoration: "underline" }}>
-                  {selectedContact.email}
-                </a>
+                {selectedContact.phone ? (
+                  <Phone size={16} color="var(--text-muted)" />
+                ) : (
+                  <Mail size={16} color="var(--text-muted)" />
+                )}
+                <span style={{ fontSize: "13px", color: "var(--text-secondary)", width: "80px" }}>
+                  {selectedContact.phone ? "연락처" : "이메일"}
+                </span>
+                {selectedContact.phone ? (
+                  <a href={`tel:${selectedContact.phone}`} style={{ fontSize: "15px", color: "var(--color-yellow)", textDecoration: "underline" }}>
+                    {selectedContact.phone}
+                  </a>
+                ) : (
+                  <a href={`mailto:${selectedContact.email}`} style={{ fontSize: "15px", color: "var(--color-yellow)", textDecoration: "underline" }}>
+                    {selectedContact.email}
+                  </a>
+                )}
               </div>
 
               {/* 카테고리 */}

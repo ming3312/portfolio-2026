@@ -11,7 +11,7 @@ const ContactSection = () => {
   const formRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    phone: "",
     category: "디자인",
     message: ""
   });
@@ -48,7 +48,7 @@ const ContactSection = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !formData.phone || !formData.message) {
       alert("모든 필수 입력 필드를 기입해 주세요.");
       return;
     }
@@ -62,7 +62,7 @@ const ContactSection = () => {
         .insert([
           {
             name: formData.name,
-            email: formData.email,
+            phone: formData.phone,
             category: formData.category,
             message: formData.message
           }
@@ -74,7 +74,7 @@ const ContactSection = () => {
 
       setIsSending(false);
       setIsSent(true);
-      setFormData({ name: "", email: "", category: "Web Development", message: "" });
+      setFormData({ name: "", phone: "", category: "디자인", message: "" });
       
       // 5초 후 성공 팝업 리셋
       setTimeout(() => setIsSent(false), 5000);
@@ -205,21 +205,21 @@ const ContactSection = () => {
                 />
               </div>
 
-              {/* 2. 이메일 필드 */}
+              {/* 2. 연락처 필드 */}
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 <label style={{ fontSize: "11px", color: "var(--text-secondary)", fontFamily: "var(--font-sub)", letterSpacing: "1.5px", fontWeight: 600 }}>
-                  YOUR EMAIL ADDRESS <span style={{ color: "var(--color-pink)" }}>*</span>
+                  YOUR PHONE NUMBER <span style={{ color: "var(--color-pink)" }}>*</span>
                 </label>
                 <input
-                  type="email"
-                  name="email"
+                  type="tel"
+                  name="phone"
                   required
-                  placeholder="답변 받으실 이메일을 입력해 주세요."
-                  value={formData.email}
+                  placeholder="연락받으실 전화번호를 입력해 주세요."
+                  value={formData.phone}
                   onChange={handleInputChange}
-                  onFocus={() => setFocusedField("email")}
+                  onFocus={() => setFocusedField("phone")}
                   onBlur={() => setFocusedField(null)}
-                  style={getGlowingStyle("email")}
+                  style={getGlowingStyle("phone")}
                   className="hover-target"
                 />
               </div>
