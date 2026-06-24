@@ -431,7 +431,7 @@ function App() {
                   lineHeight: 1.2
                 }}
               >
-                SELECTED <span className="gradient-text-pink-yellow">WORKS</span>
+                <span className="gradient-text-pink-yellow">PROJECTS</span>
               </h2>
             </div>
 

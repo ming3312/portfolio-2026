@@ -270,7 +270,7 @@ const WorksArchive = ({ navigateTo }) => {
                 textTransform: "uppercase"
               }}
             >
-              Selected Projects
+              Projects
             </h2>
 
             {gridProjects.length > 0 ? (
