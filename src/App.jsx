@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -13,6 +13,7 @@ import WorksArchive from "./components/WorksArchive";
 import ServicesSection from "./components/ServicesSection";
 import ContactSection from "./components/ContactSection";
 import Admin from "./components/Admin";
+import { projects } from "./data/projectsData";
 
 // GSAP ScrollTrigger 플러그인 등록
 gsap.registerPlugin(ScrollTrigger);
@@ -199,13 +200,20 @@ function App() {
       });
     }
 
+    // Force ScrollTrigger to refresh its calculations after layout renders
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
     return () => {
+      clearTimeout(refreshTimeout);
       cancelAnimationFrame(rafId);
       lenis.destroy();
       mm.revert();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, [currentPath]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPath, projects]);
 
   return (
     <>
@@ -270,7 +278,7 @@ function App() {
 
           {/* Chipsa 스타일의 MENU 버튼을 히어로 내 좌측 여백(헤드라인1과 티커 사이)에 편입 */}
           <div className="hero-menu-container">
-            <FloatingMenu />
+            <FloatingMenu navigateTo={navigateTo} />
           </div>
 
           {/* [중앙 영역] OPTION 1: 텍스트 티커 루프 */}
@@ -374,13 +382,13 @@ function App() {
               letterSpacing: "-0.02em",
               marginTop: "8px"
             }}>
-              ABOUT ME
+              ABOUT US
             </h2>
           </div>
 
           {/* 중앙 정렬된 3D 겹침 카드 컨테이너 */}
           <div style={{ width: "100%", maxWidth: "680px", position: "relative" }}>
-            <AboutCards cardRefs={[card1Ref, card2Ref, card3Ref]} />
+            <AboutCards card1Ref={card1Ref} card2Ref={card2Ref} card3Ref={card3Ref} />
           </div>
         </section>
 

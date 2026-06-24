@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const CustomCursor = () => {
@@ -7,22 +7,6 @@ const CustomCursor = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isWorksHovered, setIsWorksHovered] = useState(false);
   const [cursorText, setCursorText] = useState("");
-  const [isHidden, setIsHidden] = useState(true);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  useEffect(() => {
-    // 터치 지원 및 마우스 포인터가 coarse(터치)인지 체크하여 터치 디바이스 판정
-    const checkTouchDevice = () => {
-      const hasTouch = window.matchMedia("(pointer: coarse)").matches || 
-                       ("ontouchstart" in window) || 
-                       (navigator.maxTouchPoints > 0);
-      setIsTouchDevice(hasTouch);
-    };
-
-    checkTouchDevice();
-    window.addEventListener("resize", checkTouchDevice);
-    return () => window.removeEventListener("resize", checkTouchDevice);
-  }, []);
 
   useEffect(() => {
     const dot = dotRef.current;
@@ -33,8 +17,6 @@ const CustomCursor = () => {
     gsap.set([dot, ring], { opacity: 0 });
 
     const moveCursor = (e) => {
-      setIsHidden(false);
-      
       // GSAP을 이용한 실시간 마우스 좌표 매핑
       gsap.to(dot, {
         x: e.clientX,
@@ -56,7 +38,6 @@ const CustomCursor = () => {
     // 모바일 터치 트래킹 지원
     const moveTouch = (e) => {
       if (e.touches.length === 0) return;
-      setIsHidden(false);
       const touch = e.touches[0];
       
       gsap.to(dot, {
@@ -77,7 +58,6 @@ const CustomCursor = () => {
     };
 
     const handleTouchStart = (e) => {
-      setIsHidden(false);
       moveTouch(e);
     };
 
@@ -87,12 +67,10 @@ const CustomCursor = () => {
 
     // 화면 밖으로 나갔을 때 커서 숨김
     const handleMouseLeave = () => {
-      setIsHidden(true);
       gsap.to([dot, ring], { opacity: 0, duration: 0.3 });
     };
 
     const handleMouseEnter = () => {
-      setIsHidden(false);
       gsap.to([dot, ring], { opacity: 1, duration: 0.3 });
     };
 

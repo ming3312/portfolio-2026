@@ -248,19 +248,22 @@ h1, h2, h3, h4, h5, h6 {
   }
   #works .glow-card {
     padding: 24px 20px !important; /* 모바일용 안여백 압축 */
-    min-height: 410px !important;
+    min-height: 390px !important;
     display: flex !important;
     flex-direction: column !important;
   }
   /* 모바일용 브라우저 목업 프레임 및 이미지 정지 위치 정교화 */
   #works .browser-mockup {
-    height: 200px !important;
+    height: 190px !important;
   }
   #works .mockup-content-viewport {
-    height: 176px !important; /* 헤더 24px를 뺀 실질 뷰포트 높이 */
+    height: 166px !important; /* 헤더 24px를 뺀 실질 뷰포트 높이 */
   }
   #works .works-card-hover:hover .mockup-scroll-image {
-    transform: translateY(calc(-100% + 176px)) !important; /* 모바일 전용 정밀 정지선 */
+    transform: translateY(calc(-100% + 166px)) !important; /* 모바일 전용 정밀 정지선 */
+  }
+  #works .project-role {
+    display: none !important;
   }
   #works h3 {
     font-size: 18px !important;
@@ -561,19 +564,19 @@ h1, h2, h3, h4, h5, h6 {
   }
   #works .glow-card {
     padding: 20px 16px !important;
-    min-height: 450px !important;
+    min-height: 380px !important;
     display: flex !important;
     flex-direction: column !important;
   }
   #works .browser-mockup {
-    height: 240px !important;
+    height: 180px !important;
   }
   #works .mockup-content-viewport {
-    height: 216px !important;
+    height: 156px !important;
   }
   /* 모바일 가상/실제 이미지 스크롤 정지선 */
   #works .works-card-hover:hover .mockup-scroll-image {
-    transform: translateY(calc(-100% + 216px)) !important;
+    transform: translateY(calc(-100% + 156px)) !important;
   }
   #works .view-all-inner-card {
     height: 100% !important;

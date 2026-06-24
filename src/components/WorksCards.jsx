@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TiltCard } from "./AboutCards";
 import { projects } from "../data/projectsData";
 
 // --- 브라우저 자동 스크롤 목업 컴포넌트 ---
-const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) => {
+const BrowserMockup = ({ projectColor, projectTitle, projectImage }) => {
   const [imageError, setImageError] = useState(false);
 
   return (
@@ -110,8 +110,8 @@ const BrowserMockup = ({ projectColor, projectTitle, techStack, projectImage }) 
 
 // --- Works 리스트 카드 컴포넌트 ---
 const WorksCards = ({ navigateTo }) => {
-  // textOnly가 아닌 주요 프로젝트들 중 처음 3개 표시
-  const displayProjects = projects.filter((proj) => !proj.textOnly).slice(0, 3);
+  // textOnly가 아니며 메인 홈 노출 제외가 아닌 주요 프로젝트들 중 처음 5개 표시
+  const displayProjects = projects.filter((proj) => !proj.textOnly && !proj.excludeFromHome).slice(0, 5);
 
   const getOffsetY = (idx) => {
     if (idx % 3 === 0) return "0px";
@@ -167,9 +167,9 @@ const WorksCards = ({ navigateTo }) => {
               {/* 상단 메타 영역 */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
                 <span style={{ fontSize: "12px", fontFamily: "var(--font-sub)", color: proj.badgeColor, letterSpacing: "2px", fontWeight: 700 }}>
-                  {proj.id} // WORK
+                  {proj.category}
                 </span>
-                <span style={{ fontSize: "10px", color: "var(--text-muted)", fontFamily: "var(--font-sub)" }}>
+                <span className="project-role" style={{ fontSize: "10px", color: "var(--text-muted)", fontFamily: "var(--font-sub)" }}>
                   {proj.role}
                 </span>
               </div>

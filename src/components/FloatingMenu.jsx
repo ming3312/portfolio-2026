@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-const FloatingMenu = () => {
+const FloatingMenu = ({ navigateTo }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const backdropRef = useRef(null);
@@ -11,8 +11,8 @@ const FloatingMenu = () => {
 
   const menuLinks = [
     { num: "01", label: "HOME", href: "#home" },
-    { num: "02", label: "ABOUT", href: "#about" },
-    { num: "03", label: "WORKS", href: "#works" },
+    { num: "02", label: "ABOUT US", href: "#about" },
+    { num: "03", label: "PROJECTS", href: "/works" },
     { num: "04", label: "SERVICES", href: "#services" },
     { num: "05", label: "CONTACT", href: "#contact" }
   ];
@@ -226,7 +226,17 @@ const FloatingMenu = () => {
                 {/* 26px보다 더 큼직하고 시각적 무게감 있는 40px 타이포 */}
                 <a
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    setIsOpen(false);
+                    if (link.href.startsWith("/")) {
+                      e.preventDefault();
+                      if (navigateTo) {
+                        navigateTo(link.href);
+                      } else {
+                        window.location.pathname = link.href;
+                      }
+                    }
+                  }}
                   style={{
                     fontFamily: "var(--font-headline)",
                     fontSize: "clamp(28px, 3.8vw, 40px)",

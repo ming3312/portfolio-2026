@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 // --- Framer Motion 기반 3D 탄성 틸트 카드 컴포넌트 ---
@@ -91,7 +91,7 @@ export function TiltCard({ children, style, className }) {
 }
 
 // --- About Us 카드 모음 컴포넌트 ---
-export default function AboutCards({ cardRefs }) {
+export default function AboutCards({ card1Ref, card2Ref, card3Ref }) {
   // 스택 배지용 스타일 (시원한 크기로 고도화)
   const tagPinkStyle = {
     background: "rgba(255, 45, 120, 0.06)",
@@ -125,14 +125,14 @@ export default function AboutCards({ cardRefs }) {
     <div className="about-cards-container">
       {/* Card 1: Intro Card (z-index: 20) */}
       <div 
-        ref={cardRefs[0]}
+        ref={card1Ref}
         className="about-card-wrapper card-1"
         style={{ zIndex: 20 }}
       >
         <TiltCard style={{ padding: "48px", borderColor: "rgba(255, 45, 120, 0.2)", minHeight: "440px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "28px" }}>
             <span style={{ fontSize: "13px", fontFamily: "var(--font-sub)", letterSpacing: "2px", color: "var(--color-pink)" }}>
-              01 // CORE PROFILE
+              CORE PROFILE
             </span>
             <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-sub)" }}>
               YEAR 2026
@@ -151,14 +151,14 @@ export default function AboutCards({ cardRefs }) {
 
       {/* Card 2: Adaptable Role Spectrum Card (z-index: 15) */}
       <div 
-        ref={cardRefs[1]}
+        ref={card2Ref}
         className="about-card-wrapper card-2"
         style={{ zIndex: 15 }}
       >
         <TiltCard style={{ padding: "48px", borderColor: "rgba(255, 255, 255, 0.08)", minHeight: "440px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "28px" }}>
             <span style={{ fontSize: "13px", fontFamily: "var(--font-sub)", letterSpacing: "2px", color: "var(--text-secondary)" }}>
-              02 // THE CO-CREATORS WITHIN
+              THE CO-CREATORS WITHIN
             </span>
           </div>
 
@@ -180,14 +180,14 @@ export default function AboutCards({ cardRefs }) {
 
       {/* Card 3: Client-Centric Execution Card (z-index: 10) */}
       <div 
-        ref={cardRefs[2]}
+        ref={card3Ref}
         className="about-card-wrapper card-3"
         style={{ zIndex: 10 }}
       >
         <TiltCard style={{ padding: "48px", borderColor: "rgba(255, 224, 0, 0.15)", minHeight: "440px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px" }}>
             <span style={{ fontSize: "13px", fontFamily: "var(--font-sub)", letterSpacing: "2px", color: "var(--color-yellow)" }}>
-              03 // CLIENT-CENTRIC VISION
+              CLIENT-CENTRIC VISION
             </span>
             {/* Neon Yellow 1% 포인트 배지 */}
             <span 

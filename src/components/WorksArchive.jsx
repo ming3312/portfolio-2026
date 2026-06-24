@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useState, useEffect } from "react";
 import { projects } from "../data/projectsData";
 
 const WorksArchive = ({ navigateTo }) => {
@@ -7,14 +8,10 @@ const WorksArchive = ({ navigateTo }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeViewMode, setActiveViewMode] = useState("PC");
 
-  // 1. 카테고리 종류 정의
-  const categories = ["ALL", "BRAND / BUSINESS", "E COMMERCE", "CAMPAGIN", "OTHER"];
-
-  // 2. 각 카테고리별 프로젝트 개수 계산 (동적 윗첨자 용)
-  const getCategoryCount = (cat) => {
-    if (cat === "ALL") return projects.length;
-    return projects.filter((p) => p.category === cat).length;
-  };
+  // 1. 카테고리 종류 정의 (등록된 프로젝트가 존재하는 카테고리만 노출)
+  const categories = ["ALL", "BRAND", "E COMMERCE", "CAMPAGIN", "OTHER"].filter(
+    (cat) => cat === "ALL" || projects.some((p) => p.category === cat)
+  );
 
   // 3. 현재 카테고리에 해당하는 프로젝트 필터링
   const filteredProjects = activeCategory === "ALL"
@@ -258,22 +255,23 @@ const WorksArchive = ({ navigateTo }) => {
         <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "80px" }}>
           
           {/* 1) 카드 그리드형 리스트 (textOnly: false) */}
-          <div>
-            <h2
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontWeight: 800,
-                fontSize: "18px",
-                letterSpacing: "2px",
-                color: "rgba(255,255,255,0.3)",
-                marginBottom: "32px",
-                textTransform: "uppercase"
-              }}
-            >
-              Projects
-            </h2>
+          {/* 1) 카드 그리드형 리스트 (textOnly: false) */}
+          {gridProjects.length > 0 && (
+            <div>
+              <h2
+                style={{
+                  fontFamily: "var(--font-headline)",
+                  fontWeight: 800,
+                  fontSize: "18px",
+                  letterSpacing: "2px",
+                  color: "rgba(255,255,255,0.3)",
+                  marginBottom: "32px",
+                  textTransform: "uppercase"
+                }}
+              >
+                Projects
+              </h2>
 
-            {gridProjects.length > 0 ? (
               <div
                 style={{
                   display: "grid",
@@ -404,30 +402,26 @@ const WorksArchive = ({ navigateTo }) => {
                   );
                 })}
               </div>
-            ) : (
-              <div style={{ color: "rgba(255,255,255,0.2)", fontSize: "14px" }}>
-                등록된 프로젝트가 없습니다.
-              </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* 2) 텍스트 전용 리스트형 (textOnly: true) */}
-          <div style={{ marginTop: "40px" }}>
-            <h2
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontWeight: 800,
-                fontSize: "18px",
-                letterSpacing: "2px",
-                color: "rgba(255,255,255,0.3)",
-                marginBottom: "24px",
-                textTransform: "uppercase"
-              }}
-            >
-              Other Works
-            </h2>
+          {listProjects.length > 0 && (
+            <div style={{ marginTop: "40px" }}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-headline)",
+                  fontWeight: 800,
+                  fontSize: "18px",
+                  letterSpacing: "2px",
+                  color: "rgba(255,255,255,0.3)",
+                  marginBottom: "24px",
+                  textTransform: "uppercase"
+                }}
+              >
+                Other Works
+              </h2>
 
-            {listProjects.length > 0 ? (
               <div style={{ display: "flex", flexDirection: "column" }}>
                 {listProjects.map((proj) => {
                   const hoverColor = proj.badgeColor || "#FFE000";
@@ -499,12 +493,8 @@ const WorksArchive = ({ navigateTo }) => {
                   );
                 })}
               </div>
-            ) : (
-              <div style={{ color: "rgba(255,255,255,0.2)", fontSize: "14px" }}>
-                등록된 프로젝트가 없습니다.
-              </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -719,25 +709,38 @@ const WorksArchive = ({ navigateTo }) => {
               </div>
             )}
             {/* 이미지 뷰포트 영역 */}
-            <div
-              style={{
-                width: "100%",
-                maxWidth: imgMaxWidth,
-                borderRadius: "16px",
-                boxShadow: "0 25px 60px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1)",
-                border: "1px solid rgba(0, 0, 0, 0.06)",
-                overflow: "hidden",
-                backgroundColor: "#F9F9FB",
-                transition: "all 0.4s cubic-bezier(0.25, 1, 0.5, 1)"
-              }}
-            >
-              {activePopupProj.liveUrl ? (
-                <a
-                  href={activePopupProj.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ display: "block", cursor: "pointer", width: "100%" }}
-                >
+            {activePopupProj.projectImage && (
+              <div
+                style={{
+                  width: "100%",
+                  maxWidth: imgMaxWidth,
+                  borderRadius: "16px",
+                  boxShadow: "0 25px 60px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1)",
+                  border: "1px solid rgba(0, 0, 0, 0.06)",
+                  overflow: "hidden",
+                  backgroundColor: "#F9F9FB",
+                  transition: "all 0.4s cubic-bezier(0.25, 1, 0.5, 1)"
+                }}
+              >
+                {activePopupProj.liveUrl ? (
+                  <a
+                    href={activePopupProj.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "block", cursor: "pointer", width: "100%" }}
+                  >
+                    <img
+                      src={activePopupProj.projectImageMobile && activeViewMode === "Mobile" ? activePopupProj.projectImageMobile : activePopupProj.projectImage}
+                      alt={activePopupProj.title}
+                      style={{
+                        width: "100%",
+                        maxWidth: imgMaxWidth,
+                        height: "auto",
+                        display: "block"
+                      }}
+                    />
+                  </a>
+                ) : (
                   <img
                     src={activePopupProj.projectImageMobile && activeViewMode === "Mobile" ? activePopupProj.projectImageMobile : activePopupProj.projectImage}
                     alt={activePopupProj.title}
@@ -748,20 +751,9 @@ const WorksArchive = ({ navigateTo }) => {
                       display: "block"
                     }}
                   />
-                </a>
-              ) : (
-                <img
-                  src={activePopupProj.projectImageMobile && activeViewMode === "Mobile" ? activePopupProj.projectImageMobile : activePopupProj.projectImage}
-                  alt={activePopupProj.title}
-                  style={{
-                    width: "100%",
-                    maxWidth: imgMaxWidth,
-                    height: "auto",
-                    display: "block"
-                  }}
-                />
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* 다음 슬라이드 화살표 */}

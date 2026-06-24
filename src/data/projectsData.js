@@ -3,6 +3,53 @@
 export const projects = [
   {
     id: "01",
+    title: "Ecomall",
+    projectName: "Ecomall",
+    category: "BRAND",
+    role: "MAINTENANCE & OPERATION",
+    desc: "홈페이지 유지보수 및 상시 관리를 전담하여 안정적인 웹 서비스 환경을 지원하고 있습니다.",
+    techStack: ["HTML5", "CSS3", "JavaScript", "Maintenance"],
+    color: "rgba(255, 224, 0, 0.08)",
+    borderColor: "rgba(255, 224, 0, 0.25)",
+    badgeColor: "#FFE000",
+    textOnly: true
+  },
+  {
+    id: "02",
+    title: "HWANGWOO",
+    projectName: "황우",
+    category: "E COMMERCE",
+    role: "PLANNING & DESIGN & PUBLISHING",
+    desc: "기획부터 디자인, 퍼블리싱까지 전 과정을 전담하여 제작한 명품 한우 브랜드의 고품격 반응형 이커머스 쇼핑몰입니다.",
+    techStack: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+    color: "rgba(255, 224, 0, 0.08)",
+    borderColor: "rgba(255, 224, 0, 0.25)",
+    badgeColor: "#FFE000",
+    projectImage: "/images/project_hwangwoo_full.jpg",
+    projectImageMobile: "/images/project_hwangwoo_mobile.png",
+    projectThumb: "/images/project_hwangwoo_thumb.png",
+    liveUrl: "https://hwangwoo001.cafe24.com/",
+    textOnly: false
+  },
+  {
+    id: "03",
+    title: "녹색어머니",
+    projectName: "녹색어머니",
+    category: "BRAND",
+    role: "PLANNING & DESIGN & DEVELOPMENT",
+    desc: "전반적인 사업 진행 기획부터 UI/UX 디자인, 프론트엔드 및 백엔드 개발까지 전 과정을 전담하여 수행하고 있습니다.",
+    techStack: ["Planning", "Design", "Development", "Mobile App"],
+    color: "rgba(0, 230, 118, 0.08)",
+    borderColor: "rgba(0, 230, 118, 0.25)",
+    badgeColor: "#00E676",
+    projectImage: "/images/project_greenmother_mobile.png",
+    projectThumb: "/images/project_greenmother_mobile.png",
+    mobileOnly: true,
+    textOnly: false,
+    excludeFromHome: true
+  },
+  {
+    id: "04",
     title: "월드비전 특별한 후원금",
     projectName: "월드비전 특별한 후원금",
     category: "CAMPAGIN",
@@ -18,7 +65,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "02",
+    id: "05",
     title: "월드비전 꿈엽서그리기대회 편지쓰기",
     projectName: "월드비전 꿈엽서그리기대회 편지쓰기",
     category: "CAMPAGIN",
@@ -34,7 +81,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "03",
+    id: "06",
     title: "월드비전 생일축하 페이지",
     projectName: "월드비전 생일축하 페이지",
     category: "CAMPAGIN",
@@ -50,7 +97,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "04",
+    id: "07",
     title: "월드비전 후원아동 성장 스토리",
     projectName: "월드비전 후원아동 성장 스토리",
     category: "CAMPAGIN",
@@ -66,7 +113,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "05",
+    id: "08",
     title: "월드비전 서신독려 캠페인",
     projectName: "월드비전 서신독려 캠페인",
     category: "CAMPAGIN",
@@ -83,7 +130,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "06",
+    id: "09",
     title: "월드비전 크리스마스 선물 보내기",
     projectName: "월드비전 크리스마스 선물 보내기 캠페인",
     category: "CAMPAGIN",
@@ -99,7 +146,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "07",
+    id: "10",
     title: "월드비전 닭 보내기 캠페인 결과보고",
     projectName: "월드비전 닭 보내기 캠페인 결과보고",
     category: "CAMPAGIN",
@@ -115,7 +162,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "08",
+    id: "11",
     title: "월드비전 후원아동 편지쓰기",
     projectName: "월드비전 후원아동 편지쓰기 캠페인",
     category: "CAMPAGIN",
@@ -131,7 +178,7 @@ export const projects = [
     textOnly: false
   },
   {
-    id: "09",
+    id: "12",
     title: "월드비전 사업후원자 연말편지",
     projectName: "월드비전 개별페이지",
     category: "CAMPAGIN",
@@ -145,96 +192,5 @@ export const projects = [
     projectThumb: "/images/project_wv_letter_thumb.png",
     liveUrl: "https://gb.worldvision.or.kr/donor/22-business-report-1.asp",
     textOnly: false
-  },
-  {
-    id: "10",
-    title: "BTS QR PROMOTION",
-    category: "BRAND / BUSINESS",
-    role: "INTERACTIVE MARKETING PAGE",
-    desc: "QR 인터랙션을 활용하여 아티스트와 글로벌 팬덤을 연결하는 브랜드 프로모션입니다.",
-    techStack: ["React", "GSAP", "Vanilla CSS"],
-    color: "rgba(255, 224, 0, 0.08)",
-    borderColor: "rgba(255, 224, 0, 0.25)",
-    badgeColor: "#FFE000",
-    projectImage: "/images/project_bts.png",
-    textOnly: false
-  },
-  {
-    id: "11",
-    title: "PIXEL ICO COMMUNITY",
-    category: "BRAND / BUSINESS",
-    role: "WEB PUBLISHING & COMMUNITY SYSTEM",
-    desc: "실시간 암호화폐 정보와 일정 공유 기능을 탑재한 투자자 소통 커뮤니티 웹입니다.",
-    techStack: ["React", "Vite", "GSAP", "CSS modules"],
-    color: "rgba(255, 224, 0, 0.08)",
-    borderColor: "rgba(255, 224, 0, 0.25)",
-    badgeColor: "#FFE000",
-    projectImage: "/images/project_pixel.png",
-    textOnly: false
-  },
-  {
-    id: "12",
-    title: "KIOSK FOUNDATION",
-    category: "OTHER",
-    role: "FOUNDATION WEBSITE REDESIGN & PUBLISH",
-    desc: "재단의 비전과 사회 혁신 프로젝트를 소개하는 미니멀 디자인의 공식 사이트입니다.",
-    techStack: ["Vite", "Vanilla JS", "GSAP"],
-    color: "rgba(255, 224, 0, 0.08)",
-    borderColor: "rgba(255, 224, 0, 0.25)",
-    badgeColor: "#FFE000",
-    projectImage: "/images/project_kiosk.png",
-    textOnly: false
-  },
-  {
-    id: "13",
-    title: "BE DESIGN",
-    category: "BRAND / BUSINESS",
-    role: "UI/UX DESIGN & BRANDING SPEC",
-    desc: "브랜드 정체성과 전문성을 직관적이고 세련되게 전달하는 포트폴리오 사이트입니다.",
-    techStack: ["Figma", "Design System", "Branding"],
-    color: "rgba(255, 224, 0, 0.08)",
-    borderColor: "rgba(255, 224, 0, 0.25)",
-    badgeColor: "#FFE000",
-    projectImage: "/images/project_bedesign.png",
-    textOnly: false
-  },
-  {
-    id: "14",
-    title: "WONDERPLACE",
-    category: "E COMMERCE",
-    role: "E-COMMERCE SHOWROOM & INTERFACES",
-    desc: "트렌디한 감성의 패션 콘텐츠를 몰입감 있게 전달하는 커머스 쇼룸 페이지입니다.",
-    techStack: ["React", "Supabase", "TailwindCSS"],
-    color: "rgba(255, 224, 0, 0.08)",
-    borderColor: "rgba(255, 224, 0, 0.25)",
-    badgeColor: "#FFE000",
-    projectImage: "/images/project_wonderplace.png",
-    textOnly: false
-  },
-  {
-    id: "15",
-    title: "ACHIMOSPHERE",
-    category: "OTHER",
-    role: "INTERIOR ARCHITECTURE ARCHIVE",
-    desc: "고감도 인테리어 감성을 반영한 디자인과 직관적 포트폴리오 구조로 작업물을 빠르게 탐색하도록 구성했습니다.",
-    techStack: ["React", "Vanilla CSS"],
-    color: "rgba(255, 224, 0, 0.08)",
-    borderColor: "rgba(255, 224, 0, 0.25)",
-    badgeColor: "#FFE000",
-    projectImage: "/images/project_achimosphere.png",
-    textOnly: true
-  },
-  {
-    id: "16",
-    title: "CARRIER x PARK GYU-YOUNG MICROSITE",
-    category: "CAMPAGIN",
-    role: "PROMOTION MICROSITE & MARKETING",
-    desc: "모델 박규영의 신선한 이미지와 감각적 비주얼로 브랜드 메시지를 전달해 유입도 높은 프로모션 경험을 구현했습니다.",
-    techStack: ["React", "GSAP", "Vanilla CSS"],
-    color: "rgba(255, 45, 120, 0.12)",
-    borderColor: "rgba(255, 45, 120, 0.25)",
-    badgeColor: "#FF2D78",
-    projectImage: "/images/project_carrier.png",
-    textOnly: true
   }
 ];
