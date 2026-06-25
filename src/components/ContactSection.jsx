@@ -134,7 +134,7 @@ const ContactSection = () => {
             color: "var(--color-pink)",
             letterSpacing: "3px"
           }}>
-            PHASE 05
+            GET IN TOUCH
           </span>
           <h2 style={{
             fontFamily: "var(--font-headline)",
@@ -147,20 +147,6 @@ const ContactSection = () => {
           }}>
             START A PROJECT
           </h2>
-          <p style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "14px",
-            color: "var(--text-secondary)",
-            marginTop: "16px",
-            letterSpacing: "0.5px",
-            opacity: 0.8,
-            lineHeight: 1.6,
-            maxWidth: "540px",
-            margin: "16px auto 0",
-            wordBreak: "keep-all"
-          }}>
-            Let's build something exceptional together. Get in touch to start your next digital milestone.
-          </p>
         </div>
 
         {/* 글로잉 의뢰 폼 카드 */}
