@@ -264,7 +264,7 @@ const WorksArchive = ({ navigateTo }) => {
                   fontWeight: 800,
                   fontSize: "18px",
                   letterSpacing: "2px",
-                  color: "rgba(255,255,255,0.3)",
+                  color: "var(--color-white)",
                   marginBottom: "32px",
                   textTransform: "uppercase"
                 }}
@@ -414,7 +414,7 @@ const WorksArchive = ({ navigateTo }) => {
                   fontWeight: 800,
                   fontSize: "18px",
                   letterSpacing: "2px",
-                  color: "rgba(255,255,255,0.3)",
+                  color: "var(--color-white)",
                   marginBottom: "24px",
                   textTransform: "uppercase"
                 }}
