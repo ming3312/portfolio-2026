@@ -384,6 +384,20 @@ function App() {
             }}>
               ABOUT US
             </h2>
+            <p style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "14px",
+              color: "var(--text-secondary)",
+              marginTop: "16px",
+              letterSpacing: "0.5px",
+              opacity: 0.8,
+              lineHeight: 1.6,
+              maxWidth: "540px",
+              margin: "16px auto 0",
+              wordBreak: "keep-all"
+            }}>
+              Bridging creative design with solid engineering to build the next generation of web products.
+            </p>
           </div>
 
           {/* 중앙 정렬된 3D 겹침 카드 컨테이너 */}
@@ -441,6 +455,20 @@ function App() {
               >
                 <span className="gradient-text-pink-yellow">PROJECTS</span>
               </h2>
+              <p style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "14px",
+                color: "var(--text-secondary)",
+                marginTop: "16px",
+                letterSpacing: "0.5px",
+                opacity: 0.8,
+                lineHeight: 1.6,
+                maxWidth: "540px",
+                margin: "16px auto 0",
+                wordBreak: "keep-all"
+              }}>
+                A curated showcase of interactive web applications, visual design, and digital platforms.
+              </p>
             </div>
 
             {/* 카드들만 들어있는 가로 스크롤 컨테이너 트랙 */}

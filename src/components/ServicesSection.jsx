@@ -82,6 +82,20 @@ const ServicesSection = () => {
           }}>
             SERVICES
           </h2>
+          <p style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "14px",
+            color: "var(--text-secondary)",
+            marginTop: "16px",
+            letterSpacing: "0.5px",
+            opacity: 0.8,
+            lineHeight: 1.6,
+            maxWidth: "540px",
+            margin: "16px auto 0",
+            wordBreak: "keep-all"
+          }}>
+            High-end creative solutions spanning design systems, frontend publishing, and full-stack logic.
+          </p>
         </div>
 
         {/* 아코디언 리스트 컨테이너 */}

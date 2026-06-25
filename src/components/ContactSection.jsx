@@ -147,8 +147,19 @@ const ContactSection = () => {
           }}>
             START A PROJECT
           </h2>
-          <p style={{ color: "var(--text-secondary)", fontFamily: "var(--font-body)", fontSize: "15px", marginTop: "14px", opacity: 0.8 }}>
-            세련된 디자인과 튼튼한 기술의 융합. 새로운 차원의 웹 프로젝트 의뢰를 시작해보세요.
+          <p style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "14px",
+            color: "var(--text-secondary)",
+            marginTop: "16px",
+            letterSpacing: "0.5px",
+            opacity: 0.8,
+            lineHeight: 1.6,
+            maxWidth: "540px",
+            margin: "16px auto 0",
+            wordBreak: "keep-all"
+          }}>
+            Let's build something exceptional together. Get in touch to start your next digital milestone.
           </p>
         </div>
 
