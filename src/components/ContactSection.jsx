@@ -82,7 +82,7 @@ const ContactSection = () => {
     } catch (error) {
       console.error("데이터베이스 전송 실패:", error);
       setIsSending(false);
-      alert("데이터베이스 전송에 실패하였습니다. 다시 시도해 주세요.");
+      alert("데이터베이스 전송에 실패하였습니다: " + (error.message || error.details || JSON.stringify(error)));
     }
   };
 

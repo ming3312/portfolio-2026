@@ -80,7 +80,7 @@ const Admin = ({ navigateTo }) => {
       setContacts(data || []);
     } catch (err) {
       console.error("데이터 패치 실패:", err);
-      alert("데이터를 가져오는 중 오류가 발생했습니다.");
+      alert("데이터를 가져오는 중 오류가 발생했습니다: " + (err.message || err.details || JSON.stringify(err)));
     } finally {
       setIsLoading(false);
     }
@@ -110,7 +110,7 @@ const Admin = ({ navigateTo }) => {
       }
     } catch (err) {
       console.error("삭제 실패:", err);
-      alert("삭제 처리에 실패했습니다. 다시 시도해 주세요.");
+      alert("삭제 처리에 실패했습니다: " + (err.message || err.details || JSON.stringify(err)));
     } finally {
       setIsDeletingId(null);
     }
