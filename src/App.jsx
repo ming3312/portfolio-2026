@@ -39,6 +39,17 @@ function App() {
   const isAdmin = currentPath === "/admin";
   const isArchive = currentPath.startsWith("/works");
 
+  useEffect(() => {
+    if (isAdmin) {
+      document.documentElement.classList.add("admin-mode");
+    } else {
+      document.documentElement.classList.remove("admin-mode");
+    }
+    return () => {
+      document.documentElement.classList.remove("admin-mode");
+    };
+  }, [isAdmin]);
+
   const line1Ref = useRef(null);
   const tickerContainerRef = useRef(null);
   const line2Ref = useRef(null);

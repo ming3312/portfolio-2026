@@ -55,6 +55,22 @@ a, button, input, select, textarea {
   cursor: none;
 }
 
+/* 어드민 모드에서는 일반 마우스 커서 활성화 */
+.admin-mode,
+.admin-mode body {
+  cursor: auto !important;
+}
+.admin-mode a,
+.admin-mode button,
+.admin-mode [role="button"],
+.admin-mode select {
+  cursor: pointer !important;
+}
+.admin-mode input,
+.admin-mode textarea {
+  cursor: text !important;
+}
+
 /* Selection style */
 ::selection {
   background-color: var(--color-pink);
