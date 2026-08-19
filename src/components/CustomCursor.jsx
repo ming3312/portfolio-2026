@@ -16,6 +16,26 @@ const CustomCursor = () => {
     // 초기 상태 숨김 처리
     gsap.set([dot, ring], { opacity: 0 });
 
+    let hoveredEl = null;
+
+    const resetCursor = () => {
+      setIsHovered(false);
+      setIsWorksHovered(false);
+      setCursorText("");
+      gsap.to(ring, {
+        scale: 1,
+        backgroundColor: "transparent",
+        borderColor: "var(--color-pink)",
+        borderWidth: "1.5px",
+        duration: 0.3,
+        ease: "power3.out"
+      });
+      gsap.to(dot, {
+        scale: 1,
+        duration: 0.2
+      });
+    };
+
     const moveCursor = (e) => {
       // GSAP을 이용한 실시간 마우스 좌표 매핑
       gsap.to(dot, {
@@ -89,7 +109,8 @@ const CustomCursor = () => {
       const worksHoverables = document.querySelectorAll(".works-card-hover");
       const viewAllHoverables = document.querySelectorAll(".works-viewall-hover");
 
-      const onMouseEnter = () => {
+      const onMouseEnter = (e) => {
+        hoveredEl = e.currentTarget;
         setIsHovered(true);
         // 일반 호버 시 링 크기를 2.2배 확대 및 면 채움
         gsap.to(ring, {
@@ -106,22 +127,12 @@ const CustomCursor = () => {
       };
 
       const onMouseLeave = () => {
-        setIsHovered(false);
-        // 원래 크기로 복원
-        gsap.to(ring, {
-          scale: 1,
-          backgroundColor: "transparent",
-          borderWidth: "1.5px",
-          duration: 0.3,
-          ease: "power3.out"
-        });
-        gsap.to(dot, {
-          scale: 1,
-          duration: 0.2
-        });
+        hoveredEl = null;
+        resetCursor();
       };
 
-      const onWorksEnter = () => {
+      const onWorksEnter = (e) => {
+        hoveredEl = e.currentTarget;
         setIsWorksHovered(true);
         setCursorText("VIEW PROJECT");
         // 웍스 카드 호버 시 링을 4배 크기로 확대하고 다크 배경 테두리 지정
@@ -140,23 +151,12 @@ const CustomCursor = () => {
       };
 
       const onWorksLeave = () => {
-        setIsWorksHovered(false);
-        setCursorText("");
-        gsap.to(ring, {
-          scale: 1,
-          backgroundColor: "transparent",
-          borderColor: "var(--color-pink)",
-          borderWidth: "1.5px",
-          duration: 0.3,
-          ease: "power3.out"
-        });
-        gsap.to(dot, {
-          scale: 1,
-          duration: 0.2
-        });
+        hoveredEl = null;
+        resetCursor();
       };
 
-      const onViewAllEnter = () => {
+      const onViewAllEnter = (e) => {
+        hoveredEl = e.currentTarget;
         setIsWorksHovered(true);
         setCursorText("VIEW ALL");
         // 전체보기 카드 호버 시 링을 4배 크기로 확대하고 다크 배경 테두리 지정
@@ -175,20 +175,8 @@ const CustomCursor = () => {
       };
 
       const onViewAllLeave = () => {
-        setIsWorksHovered(false);
-        setCursorText("");
-        gsap.to(ring, {
-          scale: 1,
-          backgroundColor: "transparent",
-          borderColor: "var(--color-pink)",
-          borderWidth: "1.5px",
-          duration: 0.3,
-          ease: "power3.out"
-        });
-        gsap.to(dot, {
-          scale: 1,
-          duration: 0.2
-        });
+        hoveredEl = null;
+        resetCursor();
       };
 
       hoverables.forEach((el) => {
@@ -234,6 +222,10 @@ const CustomCursor = () => {
     let cleanHoverEvents = updateHoverEvents();
 
     const observer = new MutationObserver(() => {
+      if (hoveredEl && !document.body.contains(hoveredEl)) {
+        hoveredEl = null;
+        resetCursor();
+      }
       cleanHoverEvents();
       cleanHoverEvents = updateHoverEvents();
     });
