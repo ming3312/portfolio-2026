@@ -22,10 +22,14 @@ function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
   const navigateTo = (path) => {
+    const prevPathname = window.location.pathname;
     window.history.pushState(null, "", path);
     setCurrentPath(path);
-    // 페이지 이동 시 즉시 최상단 스크롤 초기화
-    window.scrollTo(0, 0);
+    // 이전 경로와 다음 경로의 pathname이 다를 때만 최상단 스크롤 초기화 (쿼리스트링만 변경 시 스크롤 위치 유지)
+    const nextPathname = path.split("?")[0];
+    if (prevPathname !== nextPathname) {
+      window.scrollTo(0, 0);
+    }
   };
 
   useEffect(() => {
