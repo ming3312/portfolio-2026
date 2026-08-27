@@ -44,9 +44,10 @@ export const projects = [
     badgeColor: "#00E676",
     projectImage: "/images/project_greenmother_mobile.png",
     projectThumb: "/images/project_greenmother_mobile.png",
+    liveUrl: "https://leverfree-demo.vercel.app/?uid=admin&name=%EA%B4%80%EB%A6%AC%EC%9E%90&grade=%EA%B4%80%EB%A6%AC%EC%9E%90",
     mobileOnly: true,
     textOnly: false,
-    excludeFromHome: true
+    excludeFromHome: false
   },
   {
     id: "04",
