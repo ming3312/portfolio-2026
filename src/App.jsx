@@ -19,11 +19,15 @@ import { projects } from "./data/projectsData";
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname + window.location.search);
 
-  const navigateTo = (path) => {
+  const navigateTo = (path, replace = false) => {
     const prevPathname = window.location.pathname;
-    window.history.pushState(null, "", path);
+    if (replace) {
+      window.history.replaceState({ local: true }, "", path);
+    } else {
+      window.history.pushState({ local: true }, "", path);
+    }
     setCurrentPath(path);
     // 이전 경로와 다음 경로의 pathname이 다를 때만 최상단 스크롤 초기화 (쿼리스트링만 변경 시 스크롤 위치 유지)
     const nextPathname = path.split("?")[0];
@@ -34,13 +38,13 @@ function App() {
 
   useEffect(() => {
     const handleLocationChange = () => {
-      setCurrentPath(window.location.pathname);
+      setCurrentPath(window.location.pathname + window.location.search);
     };
     window.addEventListener("popstate", handleLocationChange);
     return () => window.removeEventListener("popstate", handleLocationChange);
   }, []);
 
-  const isAdmin = currentPath === "/admin";
+  const isAdmin = currentPath.split("?")[0] === "/admin";
   const isArchive = currentPath.startsWith("/works");
 
   useEffect(() => {
@@ -66,7 +70,7 @@ function App() {
   const worksServicesWrapperRef = useRef(null);
 
   useEffect(() => {
-    if (currentPath === "/admin") return;
+    if (currentPath.split("?")[0] === "/admin") return;
 
     // --- Lenis Smooth Scroll 초기화 ---
     const lenis = new Lenis({
@@ -236,7 +240,7 @@ function App() {
       <BackgroundCanvas />
 
       {/* 커스텀 마그네틱 블렌딩 커서 - 어드민 페이지에서는 비활성화 */}
-      {currentPath !== "/admin" && <CustomCursor />}
+      {currentPath.split("?")[0] !== "/admin" && <CustomCursor />}
 
       {/* 라우팅 및 조건별 렌더링 분기 */}
       {isAdmin && <Admin navigateTo={navigateTo} />}

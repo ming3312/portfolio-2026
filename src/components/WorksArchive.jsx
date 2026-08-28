@@ -52,7 +52,18 @@ const WorksArchive = ({ navigateTo }) => {
   };
 
   const closePopup = () => {
-    navigateTo("/works");
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get("from");
+    
+    if (window.history.state && window.history.state.local) {
+      window.history.back();
+    } else {
+      if (from === "home") {
+        navigateTo("/");
+      } else {
+        navigateTo("/works");
+      }
+    }
   };
 
   // 팝업 내 이전/다음 슬라이드 제어
@@ -60,19 +71,27 @@ const WorksArchive = ({ navigateTo }) => {
     e.stopPropagation();
     if (!activePopupProj) return;
     
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get("from");
+    const suffix = from ? `&from=${from}` : "";
+    
     // 전체 리스트 기준 순환
     const currentIndex = projects.findIndex((p) => p.id === activePopupProj.id);
     const prevIndex = (currentIndex - 1 + projects.length) % projects.length;
-    navigateTo(`/works?id=${projects[prevIndex].id}`);
+    navigateTo(`/works?id=${projects[prevIndex].id}${suffix}`, true);
   };
 
   const handleNext = (e) => {
     e.stopPropagation();
     if (!activePopupProj) return;
 
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get("from");
+    const suffix = from ? `&from=${from}` : "";
+
     const currentIndex = projects.findIndex((p) => p.id === activePopupProj.id);
     const nextIndex = (currentIndex + 1) % projects.length;
-    navigateTo(`/works?id=${projects[nextIndex].id}`);
+    navigateTo(`/works?id=${projects[nextIndex].id}${suffix}`, true);
   };
 
   // 키보드 Esc 및 방향키 지원

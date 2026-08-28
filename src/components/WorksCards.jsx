@@ -137,7 +137,7 @@ const WorksCards = ({ navigateTo }) => {
           <div
             key={proj.id}
             className="works-card-hover"
-            onClick={() => navigateTo(`/works?id=${proj.id}`)}
+            onClick={() => navigateTo(`/works?id=${proj.id}&from=home`)}
             style={{
               flex: "0 0 520px", // 가로 슬라이더 내 카드 크기 고정
               marginTop: offsetY, // 비대칭 엇갈림 마진 부여
