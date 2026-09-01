@@ -62,6 +62,7 @@ export const projects = [
     badgeColor: "#FF2D78",
     projectImage: "/images/project_wv_gift.jpg",
     projectThumb: "/images/project_wv_gift_thumb.jpg",
+    liveUrl: "https://www.worldvision.or.kr/campaign/25-gift",
     mobileOnly: true,
     textOnly: false
   },
